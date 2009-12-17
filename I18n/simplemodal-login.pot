@@ -1,14 +1,14 @@
 # POT file for SimpleModal Login.
 # Copyright (C) 2009 Eric Martin
-# This file is distributed under the same license as the SimpleModal Login package.
+# This file is distributed under the same license as the SimpleModal Login SimpleModal Login.
 # Eric Martin <eric@ericmmartin.com>, 2009.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1\n"
+"Project-Id-Version: SimpleModal Login 0.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/simplemodal-login\n"
-"POT-Creation-Date: 2009-12-10 03:50+0000\n"
+"POT-Creation-Date: 2009-12-17 23:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,3 +16,133 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: simplemodal-login.php:125
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr ""
+
+#: simplemodal-login.php:126
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr ""
+
+#: simplemodal-login.php:127
+msgid "<strong>ERROR</strong>: Both fields are required."
+msgstr ""
+
+#: simplemodal-login.php:150
+msgid "Username"
+msgstr ""
+
+#: simplemodal-login.php:150
+msgid "Password"
+msgstr ""
+
+#: simplemodal-login.php:164
+msgid "Remember Me"
+msgstr ""
+
+#: simplemodal-login.php:164
+msgid "Log In"
+msgstr ""
+
+#: simplemodal-login.php:164
+msgid "Cancel"
+msgstr ""
+
+#: simplemodal-login.php:164
+msgid "Powered by"
+msgstr ""
+
+#: simplemodal-login.php:201
+msgid "Settings"
+msgstr ""
+
+#: simplemodal-login.php:218
+msgid "Success! Your changes were successfully saved!"
+msgstr ""
+
+#: simplemodal-login.php:221
+msgid "Whoops! There was a problem with the data you posted. Please try again."
+msgstr ""
+
+#: simplemodal-login.php:233
+msgid "Redirect to Admin?:"
+msgstr ""
+
+#: simplemodal-login.php:235
+msgid "Select this option to redirect to the admin page after login"
+msgstr ""
+
+#: simplemodal-login.php:238
+msgid "Theme:"
+msgstr ""
+
+#: simplemodal-login.php:245
+msgid "The theme to use."
+msgstr ""
+
+#: simplemodal-login.php:252
+msgid "Need Support?"
+msgstr ""
+
+#: simplemodal-login.php:253
+#, php-format
+msgid ""
+"For questions, issues or feature requests, please post them in the %s and "
+"make sure to tag the post with simplemodal-login."
+msgstr ""
+
+#: simplemodal-login.php:254
+msgid "Like To Contribute?"
+msgstr ""
+
+#: simplemodal-login.php:255
+msgid ""
+"If you would like to contribute, the following is a list of ways you can "
+"help:"
+msgstr ""
+
+#: simplemodal-login.php:257
+msgid "Translate SimpleModal Login into your language"
+msgstr ""
+
+#: simplemodal-login.php:258
+msgid "Blog about or link to SimpleModal Login so others can find out about it"
+msgstr ""
+
+#: simplemodal-login.php:259
+msgid "Report issues, provide feedback, request features, etc."
+msgstr ""
+
+#: simplemodal-login.php:260
+msgid "Rate SimpleModal Login on the WordPress Plugins Page"
+msgstr ""
+
+#: simplemodal-login.php:261
+msgid "Make a donation"
+msgstr ""
+
+#: simplemodal-login.php:263
+msgid "Other Links"
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "SimpleModal Login"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://www.ericmmartin.com/projects/simplemodal-login/"
+msgstr ""
+
+#. Description of an extension
+msgid ""
+"A modal Ajax login for WordPress which utilizes jQuery and the SimpleModal "
+"jQuery plugin."
+msgstr ""
+
+#. Author of an extension
+msgid "Eric Martin"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://www.ericmmartin.com"
+msgstr ""
