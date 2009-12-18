@@ -4,7 +4,7 @@ Donate link: http://www.ericmmartin.com/donate/
 Tags: ajax, login, modal, admin, password, username
 Requires at least: 2.2.0
 Tested up to: 2.9
-Stable tag: 0.2
+Stable tag: 0.3
 
 SimpleModal Login provides a modal Ajax modal login for WordPress
 
