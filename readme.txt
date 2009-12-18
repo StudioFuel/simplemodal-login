@@ -83,9 +83,10 @@ You can edit the `simplemodal-login.php` file, or more simply, just add the foll
 = 0.3 =
 * Added uninstall cleanup code
 * Updated POT file
-* Added dynamic theme support
+* Added the ability to add new themes dynamically
 * Renamed CSS and JS theme files (removed simplemodal-login- prefix)
 * Removed unused code
+* Changed redirect option meaning on the Settings page
 
 = 0.2 =
 * Updated POT file

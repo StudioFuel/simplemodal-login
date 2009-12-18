@@ -154,7 +154,7 @@ if (!class_exists('SimpleModalLogin')) {
 		</p>		
 	</form>
 	<div class="simplemodal-login-credit"><a href="http://www.ericmmartin.com/projects/simplemodal-login/">%s</a></div>
-</div>', esc_attr__('Remember Me', $this->localizationDomain), esc_attr__('Log In', $this->localizationDomain), esc_attr__('Cancel', $this->localizationDomain), $this->options['admin'] === true ? admin_url() : '', __('Powered by', $this->localizationDomain) . " SimpleModal Login");
+</div>', __('Remember Me', $this->localizationDomain), __('Log In', $this->localizationDomain), __('Cancel', $this->localizationDomain), $this->options['admin'] === true ? admin_url() : '', __('Powered by', $this->localizationDomain) . " SimpleModal Login");
 
 		}
 
@@ -223,9 +223,9 @@ if (!class_exists('SimpleModalLogin')) {
 <?php wp_nonce_field('simplemodal-login-update-options'); ?>
 	<table class="form-table">
 		<tr valign="top">
-			<th scope="row"><?php _e('Redirect to Admin?:', $this->localizationDomain); ?></th>
+			<th scope="row"><?php _e('Redirect after login?:', $this->localizationDomain); ?></th>
 			<td><label for="admin">
-				<input type="checkbox" id="admin" name="admin" <?php echo ($this->options['admin'] === true) ? "checked='checked'" : ""; ?>/> <?php _e('Select this option to redirect to the admin page after login', $this->localizationDomain); ?></label></td>
+				<input type="checkbox" id="admin" name="admin" <?php echo ($this->options['admin'] === true) ? "checked='checked'" : ""; ?>/> <?php _e('Select this option to be redirected to the WP Admin screen or the URL you provided in the <code>wp_loginout</code> function after logging in. If not selected, you will be returned to the current page.', $this->localizationDomain); ?></label></td>
 		</tr>
 		<tr valign="top">
 			<th scope="row"><?php _e('Theme:', $this->localizationDomain); ?></th>

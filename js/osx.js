@@ -8,23 +8,27 @@ jQuery(function ($) {
 	var SimpleModalLogin = {
 		container: null,
 		init: function () {
-			this.error = null;
+			var s = this;
+			s.error = null;
+
 			$('.simplemodal-login').click(function (e) {
-				e.preventDefault();	
-	
+				e.preventDefault();
+
+				s.url = this.href;
+
 				$('#simplemodal-login-form').modal({
 					overlayId: 'simplemodal-login-overlay-osx',
 					containerId: 'simplemodal-login-container-osx',
 					closeHTML: '<div class="close"><a href="#" class="simplemodal-close">x</a></div>',
 					minHeight:80,
-					opacity:65, 
+					opacity:65,
 					position:['0',],
 					overlayClose:true,
 					onOpen:SimpleModalLogin.open,
 					onShow:SimpleModalLogin.show,
 					onClose:SimpleModalLogin.close
 				});
-			});		
+			});
 		},
 		open: function (d) {
 			var self = this;
@@ -40,11 +44,11 @@ jQuery(function ($) {
 							+ title.height()
 							+ 40; // padding
 						d.container.animate(
-							{height: h}, 
+							{height: h},
 							200,
 							function () {
 								$("div.close", self.container).show();
-								data.show();		
+								data.show();
 
 								// focus on username
 								$('#user_login', self.container).focus();
@@ -57,13 +61,13 @@ jQuery(function ($) {
 		show: function (obj) {
 			var dialog = this,
 				form = $('#loginform', obj.data[0]);
-			
+
 			form.submit(function (e) {
 				e.preventDefault();
 
 				// remove any existing errors
 				$('#login_error', form[0]).remove();
-				
+
 				if (SimpleModalLogin.isValid(form)) {
 					$.ajax({
 						url: form[0].action,
@@ -74,7 +78,7 @@ jQuery(function ($) {
 							var data = $('<div></div>').append(resp),
 								error = $('#login_error', data[0]),
 								loginform = $('#loginform', data[0]);
-							
+
 							if (error.length > 0) {
 								$('p:first', form[0]).before(error);
 							}
@@ -85,13 +89,19 @@ jQuery(function ($) {
 								dialog.close();
 								var redirect = $('#redirect_to', form[0]).val(),
 									href = location.href;
-	
+
 								if (redirect.length > 0) {
-									href = redirect;
+									if (SimpleModalLogin.url && SimpleModalLogin.url.indexOf("redirect_to") !== -1) {
+										var p = SimpleModalLogin.url.split("=");
+										href = unescape(p[1]);
+									}
+									else {
+										href = redirect;
+									}
 								}
 								setTimeout(function () {window.location = href;}, 500);
 							}
-						}	
+						}
 					});
 				}
 				else {
@@ -113,7 +123,7 @@ jQuery(function ($) {
 			var log = $.trim($('#user_login', form[0]).val()),
 				pass = $.trim($('#user_pass', form[0]).val()),
 				valid = true;
-			
+
 			if (!log && !pass) {
 				SimpleModalLogin.error = 'empty_both';
 				valid = false;
@@ -126,11 +136,11 @@ jQuery(function ($) {
 				SimpleModalLogin.error = 'empty_password';
 				valid = false;
 			}
-			
+
 			return valid;
 		},
 		message: function (key) {
-			return SimpleModalLoginL10n[key] ? 
+			return SimpleModalLoginL10n[key] ?
 				SimpleModalLoginL10n[key].replace(/&gt;/g, '>').replace(/&lt;/g, '<') :
 				key;
 		},
