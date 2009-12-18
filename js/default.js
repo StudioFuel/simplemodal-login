@@ -51,13 +51,13 @@ jQuery(function ($) {
 								SimpleModalLogin.showError(form, 'empty_both');
 							}
 							else {
-								dialog.close();
 								var redirect = $('#redirect_to', form[0]).val(),
 									href = location.href;
 	
 								if (redirect.length > 0) {
 									href = redirect;
 								}
+								dialog.close();
 								window.location = href;
 							}
 						}	

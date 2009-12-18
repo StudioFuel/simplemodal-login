@@ -4,7 +4,7 @@ Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
 Author: Eric Martin
-Version: 0.2
+Version: 0.3
 Author URI: http://www.ericmmartin.com
 Revision: $Id$
 */
@@ -43,7 +43,7 @@ if (!class_exists('SimpleModalLogin')) {
 		/**
 		 * @var string The plugin version
 		 */
-		var $version = '0.2';
+		var $version = '0.3';
 
 		/**
 		 * @var string The options string name for this plugin
@@ -101,17 +101,10 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 		}
 
-		/**
-		 * Pagination based on options/args
-		 */
-		function paginate($args = false) {
-			
-		}
-
 		function simplemodal_login_css() {
-			$style = sprintf("login-%s.css", $this->options['theme']);
-			wp_enqueue_style('simplemodal-login', $this->pluginurl . "css/simplemodal-" . $style, false, $this->version, 'screen');
-			if (false !== @file_exists(TEMPLATEPATH . $style)) {
+			$style = sprintf("%s.css", $this->options['theme']);
+			wp_enqueue_style('simplemodal-login', $this->pluginurl . "css/$style", false, $this->version, 'screen');
+			if (false !== @file_exists(TEMPLATEPATH . "simplemodal-login-$style")) {
 				wp_enqueue_style('simplemodal-login-form', get_template_directory_uri() . $style, false, $this->version, 'screen');
 			}
 		}
@@ -119,7 +112,7 @@ if (!class_exists('SimpleModalLogin')) {
 		function simplemodal_login_js() {
 			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", "jquery", "1.3.3", true);
 			
-			$script = sprintf("js/simplemodal-login-%s.js", $this->options['theme']);
+			$script = sprintf("js/%s.js", $this->options['theme']);
 			wp_enqueue_script("simplemodal-login", $this->pluginurl . $script, null, $this->version, true);
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
 				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', $this->localizationDomain),
@@ -238,7 +231,14 @@ if (!class_exists('SimpleModalLogin')) {
 			<th scope="row"><?php _e('Theme:', $this->localizationDomain); ?></th>
 			<td>
 				<select name="theme" id="theme">
-				<?php foreach (array('default', 'osx') as $theme) : ?>
+				<?php foreach (glob($this->pluginpath . "css/*.css") as $cssfile) : 
+					$cssfile = basename($cssfile);
+					$theme = str_replace('.css', '', $cssfile);
+					
+					if (!file_exists($this->pluginpath . "js/{$theme}.js")) {
+						continue;
+					}
+				?>
 					<option value="<?php echo $theme; ?>" <?php echo ($theme == $this->options['theme']) ? "selected='selected'" : ""; ?>><?php echo $theme; ?></option>
 				<?php endforeach; ?>
 				</select>
@@ -249,6 +249,9 @@ if (!class_exists('SimpleModalLogin')) {
 		<input type="submit" value="Save Changes" name="simplemodal_login_save" class="button-primary" />
 	</p>
 </form>
+<h2><?php _e('Themes', $this->localizationDomain); ?></h2>
+<p><?php _e('SimpleModal Login allows you to create your own themes.', $this->localizationDomain); ?></p>
+<p><?php _e('To create a new theme you\'ll need to add two files under the <code>simplemodal-login</code> plugin directory: <code>css/THEME.css</code> and <code>js/THEME.js</code>. Replace THEME with the name you would like to use. I suggest using one of the existing themes as a template.', $this->localizationDomain); ?></p>
 <h2><?php _e('Need Support?', $this->localizationDomain); ?></h2>
 <p><?php printf(__('For questions, issues or feature requests, please post them in the %s and make sure to tag the post with simplemodal-login.', $this->localizationDomain), '<a href="http://wordpress.org/tags/simplemodal-login?forum_id=10#postform">WordPress Forum</a>'); ?></p>
 <h2><?php _e('Like To Contribute?', $this->localizationDomain); ?></h2>
@@ -277,14 +280,6 @@ if (!class_exists('SimpleModalLogin')) {
 //instantiate the class
 if (class_exists('SimpleModalLogin')) {
 	$simplemodal_login = new SimpleModalLogin();
-}
-
-/**
- * Pagination function to use for posts
- */
-function simplemodal_login($args = false) {
-	global $simplemodal_login;
-	return $simplemodal_login->paginate($args);
 }
 
 /*
