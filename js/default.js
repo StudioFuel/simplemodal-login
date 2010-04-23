@@ -2,7 +2,7 @@
  * SimpleModal Login
  * Theme: default
  * Revision: $Id$
- * Copyright (c) 2009 Eric Martin http://www.ericmmartin.com
+ * Copyright (c) 2010 Eric Martin http://www.ericmmartin.com
  */
 jQuery(function ($) {
 	var SimpleModalLogin = {
@@ -10,26 +10,45 @@ jQuery(function ($) {
 			var s = this;
 			s.error = null;
 
-			$('.simplemodal-login').click(function (e) {
-				e.preventDefault();
-
+			$('.simplemodal-login, .simplemodal-register, .simplemodal-forgotpw').click(function (e) {
+				if ($(this).hasClass('simplemodal-login')) {
+					s.form = '#loginform';
+					$('#loginform').show();
+					$('#lostpasswordform, #registerform').hide()
+				}
+				else if ($(this).hasClass('simplemodal-register')) {
+					s.form = '#registerform';
+					$('#registerform').show();
+					$('#lostpasswordform, #loginform').hide()
+				}
+				else {
+					s.form = '#lostpasswordform';
+					$('#lostpasswordform').show();
+					$('#loginform, #registerform').hide()
+				}
 				s.url = this.href;
 
-				$('#simplemodal-login-form').modal({
-					overlayId: 'simplemodal-login-overlay',
-					containerId: 'simplemodal-login-container',
-					opacity:85,
-					onShow: SimpleModalLogin.show,
-					position: ['15%',]
-				});
+				if (!$('#simplemodal-login-container').length) {
+					$('#simplemodal-login-form').modal({
+						overlayId: 'simplemodal-login-overlay',
+						containerId: 'simplemodal-login-container',
+						opacity:85,
+						onShow: SimpleModalLogin.show,
+						position: ['15%',]
+					});
+				}
+				else {
+					SimpleModalLogin.show();
+				}
+				return false;
 			});
 		},
 		show: function (obj) {
-			var dialog = this,
-				form = $('#loginform', obj.data[0]);
+			SimpleModalLogin.dialog = obj || SimpleModalLogin.dialog; 
+			var form = $(SimpleModalLogin.form, SimpleModalLogin.dialog.data[0]);
 
-			// focus on username
-			$('#user_login', form[0]).focus();
+			// focus on first element
+			$(':input:visible:first', form[0]).focus();
 
 			form.submit(function (e) {
 				e.preventDefault();
@@ -46,7 +65,7 @@ jQuery(function ($) {
 						success: function (resp) {
 							var data = $('<div></div>').append(resp),
 								error = $('#login_error', data[0]),
-								loginform = $('#loginform', data[0]);
+								loginform = $(SimpleModalLogin.form, data[0]);
 
 							if (error.length > 0) {
 								$('p:first', form[0]).before(error);
@@ -68,7 +87,7 @@ jQuery(function ($) {
 									}
 								}
 								window.location = href;
-								dialog.close();
+								$.modal.close();
 							}
 						}
 					});
@@ -79,20 +98,34 @@ jQuery(function ($) {
 			});
 		},
 		isValid: function (form) {
-			var log = $.trim($('#user_login', form[0]).val()),
-				pass = $.trim($('#user_pass', form[0]).val()),
+			var log = $('.user_login', form[0]),
+				pass = $('.user_pass', form[0]),
+				email = $('.user_email', form[0]),
+				fields = $(':text, :password', form[0]),
 				valid = true;
 
-			if (!log && !pass) {
-				SimpleModalLogin.error = 'empty_both';
-				valid = false;
-			}
-			else if (!log) {
+			
+			if (log && !$.trim(log.val())) {
 				SimpleModalLogin.error = 'empty_username';
 				valid = false;
 			}
-			else if (!pass) {
+			else if (!pass && !$.trim(pass.val())) {
 				SimpleModalLogin.error = 'empty_password';
+				valid = false;
+			}
+			else if (!email && !$.trim(email.val())) {
+				SimpleModalLogin.error = 'empty_email';
+				valid = false;
+			}
+			
+			var empty_count = 0;
+			fields.each(function () {
+				if (!$.trim(this.value)) {
+					empty_count++;
+				}
+			});
+			if (empty_count === fields.length) {
+				SimpleModalLogin.error = 'empty_all';
 				valid = false;
 			}
 

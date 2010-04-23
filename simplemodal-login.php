@@ -3,13 +3,13 @@
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
-Author: Eric Martin
 Version: 0.3
+Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 Revision: $Id$
 */
 
-/*  Copyright 2009 Eric Martin (eric@ericmmartin.com)
+/*  Copyright 2010 Eric Martin (eric@ericmmartin.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -94,6 +94,7 @@ if (!class_exists('SimpleModalLogin')) {
 			add_action('admin_menu', array(&$this, 'admin_menu_link'));
 			
 			if (!is_admin()) {
+				add_filter('register', array(&$this, 'simplemodal_register'));
 				add_filter('loginout', array(&$this, 'simplemodal_login_loginout'));
 				add_action('wp_footer', array($this, 'simplemodal_login_footer'));
 				add_action('wp_print_styles', array(&$this, 'simplemodal_login_css'));
@@ -117,7 +118,8 @@ if (!class_exists('SimpleModalLogin')) {
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
 				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', $this->localizationDomain),
 				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', $this->localizationDomain),
-				'empty_both' => __('<strong>ERROR</strong>: Both fields are required.', $this->localizationDomain)
+				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', $this->localizationDomain),
+				'empty_all' => __('<strong>ERROR</strong>: All fields are required.', $this->localizationDomain)
 			));
 			
 		}
@@ -128,34 +130,128 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 			return $link;
 		}
-		
+
+		function simplemodal_register($link) {
+			if (!is_user_logged_in()) {
+				$link = str_replace('href=', 'class="simplemodal-register" href=', $link);
+			}
+			return $link;
+		}
+
 		function simplemodal_login_footer() {
-			printf('<div id="simplemodal-login-form" style="display:none;">
-	%s
-	<form name="loginform" id="loginform" action="%s" method="post">
+			printf('<div id="simplemodal-login-form">
+	<form name="loginform" id="loginform" action="%s" method="post" style="display:none;">
+		<div class="title">%s</div>
 		<p>
 			<label>%s<br />
-			<input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="10" /></label>
+			<input type="text" name="log" class="user_login input" value="" size="20" tabindex="10" /></label>
 		</p>
 		<p>
 			<label>%s<br />
-			<input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="20" /></label>
-		</p>', $this->options['theme'] === 'osx' ? '<div class="osx-title">Login</div>' : '', site_url('wp-login.php', 'login_post'), __('Username', $this->localizationDomain), __('Password', $this->localizationDomain));
+			<input type="password" name="pwd" class="user_pass input" value="" size="20" tabindex="20" /></label>
+		</p>',
+				site_url('wp-login.php', 'login_post'),
+				__('Login', $this->localizationDomain),
+				__('Username', $this->localizationDomain),
+				__('Password', $this->localizationDomain)
+			);
 				
-		do_action('login_form');
-		
-		printf('
+			do_action('login_form');
+			
+			printf('
 		<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90" /> %s</label></p>
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" value="%s" tabindex="100" />
+			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
 			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
 			<input type="hidden" id="redirect_to" name="redirect_to" value="%s" />
 			<input type="hidden" name="testcookie" value="1" />
-		</p>		
+		</p>
+		<p class="nav">', 
+				__('Remember Me', $this->localizationDomain), 
+				__('Log In', $this->localizationDomain), 
+				__('Cancel', $this->localizationDomain),
+				$this->options['admin'] === true ? admin_url() : ''
+			);
+
+			if (get_option('users_can_register')) {
+				printf('<a class="simplemodal-register" href="%s">%s</a> | ', site_url('wp-login.php?action=register', 'login'), __('Register', $this->localizationDomain));
+			}
+			
+			printf('
+		<a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>
+		</p>
+	</form>
+	<form name="registerform" id="registerform" action="%s" method="post" style="display:none;">
+		<div class="title">%s</div>
+		<p>
+			<label>%s<br />
+			<input type="text" name="user_login" class="user_login input" value="" size="20" tabindex="10" /></label>
+		</p>
+		<p>
+			<label>%s<br />
+			<input type="text" name="user_email" class="user_email input" value="" size="25" tabindex="20" /></label>
+		</p>', 
+				site_url('wp-login.php?action=lostpassword', 'login'),
+				__('Password Lost and Found', $this->localizationDomain),
+				__('Lost your password?', $this->localizationDomain),
+				site_url('wp-login.php?action=register', 'login_post'),
+				__('Register', $this->localizationDomain),
+				__('Username', $this->localizationDomain),
+				__('E-mail', $this->localizationDomain)
+			);
+		
+			do_action('register_form');
+			
+			printf('
+		<p class="reg_passmail">%s</p>
+		<p class="submit">
+			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
+			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
+		</p>
+		<p class="nav">
+			<a class="simplemodal-login" href="%s">%s</a> | <a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>
+		</p>
+	</form>
+	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post" style="display:none;">
+		<div class="title">%s</div>
+		<p>
+			<label>%s<br />
+			<input type="text" name="user_login" class="user_login input" value="" size="20" tabindex="10" /></label>
+		</p>',
+				__('A password will be e-mailed to you.', $this->localizationDomain),
+				__('Register', $this->localizationDomain), 
+				__('Cancel', $this->localizationDomain),
+				site_url('wp-login.php', 'login'), 
+				__('Log in', $this->localizationDomain),
+				site_url('wp-login.php?action=lostpassword', 'login'),
+				__('Password Lost and Found', $this->localizationDomain),
+				__('Lost your password?', $this->localizationDomain),
+				site_url('wp-login.php?action=lostpassword', 'login_post'),
+				__('Reset Password', $this->localizationDomain),
+				__('Username or E-mail:', $this->localizationDomain)
+			);		
+
+			do_action('lostpassword_form');
+			
+			printf('
+		<p class="submit">
+			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
+			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
+		</p>
+		<p class="nav">
+			<a class="simplemodal-login" href="%s">%s</a> | <a class="simplemodal-register" href="%s">%s</a>
+		</p>
 	</form>
 	<div class="simplemodal-login-credit"><a href="http://www.ericmmartin.com/projects/simplemodal-login/">%s</a></div>
-</div>', __('Remember Me', $this->localizationDomain), __('Log In', $this->localizationDomain), __('Cancel', $this->localizationDomain), $this->options['admin'] === true ? admin_url() : '', __('Powered by', $this->localizationDomain) . " SimpleModal Login");
-
+</div>', 
+				__('Get New Password', $this->localizationDomain),
+				__('Cancel', $this->localizationDomain),
+				site_url('wp-login.php', 'login'),
+				__('Log in', $this->localizationDomain),
+				site_url('wp-login.php?action=register', 'login_post'),
+				__('Register', $this->localizationDomain),
+				__('Powered by', $this->localizationDomain) . " SimpleModal Login"
+			);
 		}
 
 		/**
