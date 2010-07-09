@@ -1,16 +1,16 @@
 === SimpleModal Login ===
 Contributors: emartin24 
 Donate link: http://www.ericmmartin.com/donate/
-Tags: ajax, login, modal, admin, password, username
+Tags: ajax, login, modal, admin, password, username, register
 Requires at least: 2.2.0
-Tested up to: 2.9
+Tested up to: 3.0
 Stable tag: 0.3
 
-SimpleModal Login provides a modal Ajax modal login for WordPress
+SimpleModal Login provides a modal Ajax modal login and registration for WordPress
 
 == Description ==
 
-SimpleModal Login provides a modal Ajax login for WordPress and utilizes jQuery and the SimpleModal jQuery plugin.
+SimpleModal Login provides a modal Ajax login and registration for WordPress and utilizes jQuery and the SimpleModal jQuery plugin.
 
 SimpleModal Login allows you to create your own custom themes. See the FAQ for details.
 	
@@ -60,7 +60,7 @@ I suggest using one of the existing themes as a template to start with.
 
 = Can I remove the "Powered by SimpleModal Login" link?  =
 
-Yup. See below.
+Yup. See below. A donation would be appreciate, but not required ;)
 
 = How can I remove the "Powered by SimpleModal Login" link?  =
 
@@ -79,6 +79,11 @@ You can edit the `simplemodal-login.php` file, or more simply, just add the foll
 
 
 == Changelog ==
+
+= 1.0 =
+* Added Forgot Password feature
+* Added Register feature
+* Added support for Peter's Login Redirect plugin
 
 = 0.3 =
 * Added uninstall cleanup code

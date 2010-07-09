@@ -23,5 +23,6 @@
 #simplemodal-login-container .user_pass, 
 #simplemodal-login-container .user_login, 
 #simplemodal-login-container .user_email {font-size:24px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:16px; border:1px solid #e5e5e5; background:#fbfbfb;}
-#simplemodal-login-container .simplemodal-login-credit {padding-top:4px; text-align:center;}
-#simplemodal-login-container .simplemodal-login-credit a {color:#bbb;}
+#simplemodal-login-container .simplemodal-login-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
+#simplemodal-login-container .simplemodal-login-credit {font-size:11px; padding-top:4px; text-align:center;}
+#simplemodal-login-container .simplemodal-login-credit a {color:#bbb; text-decoration:none;}

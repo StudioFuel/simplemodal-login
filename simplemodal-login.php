@@ -3,7 +3,7 @@
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
-Version: 0.3
+Version: 1.0
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 Revision: $Id$
@@ -94,6 +94,7 @@ if (!class_exists('SimpleModalLogin')) {
 			add_action('admin_menu', array(&$this, 'admin_menu_link'));
 			
 			if (!is_admin()) {
+				add_filter('login_redirect', array(&$this, 'simplemodal_login_redirect'), 5, 3);
 				add_filter('register', array(&$this, 'simplemodal_register'));
 				add_filter('loginout', array(&$this, 'simplemodal_login_loginout'));
 				add_action('wp_footer', array($this, 'simplemodal_login_footer'));
@@ -110,38 +111,11 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 		}
 
-		function simplemodal_login_js() {
-			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", "jquery", "1.3.3", true);
-			
-			$script = sprintf("js/%s.js", $this->options['theme']);
-			wp_enqueue_script("simplemodal-login", $this->pluginurl . $script, null, $this->version, true);
-			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
-				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', $this->localizationDomain),
-				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', $this->localizationDomain),
-				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', $this->localizationDomain),
-				'empty_all' => __('<strong>ERROR</strong>: All fields are required.', $this->localizationDomain)
-			));
-			
-		}
-		
-		function simplemodal_login_loginout($link) {
-			if (!is_user_logged_in()) {
-				$link = str_replace('href=', 'class="simplemodal-login" href=', $link);
-			}
-			return $link;
-		}
-
-		function simplemodal_register($link) {
-			if (!is_user_logged_in()) {
-				$link = str_replace('href=', 'class="simplemodal-register" href=', $link);
-			}
-			return $link;
-		}
-
 		function simplemodal_login_footer() {
 			printf('<div id="simplemodal-login-form">
 	<form name="loginform" id="loginform" action="%s" method="post" style="display:none;">
 		<div class="title">%s</div>
+		<div class="simplemodal-login-fields">
 		<p>
 			<label>%s<br />
 			<input type="text" name="log" class="user_login input" value="" size="20" tabindex="10" /></label>
@@ -180,9 +154,12 @@ if (!class_exists('SimpleModalLogin')) {
 			printf('
 		<a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>
 		</p>
+		</div>
+		<div class="simplemodal-login-activity" style="display:none;"></div>
 	</form>
 	<form name="registerform" id="registerform" action="%s" method="post" style="display:none;">
 		<div class="title">%s</div>
+		<div class="simplemodal-login-fields">
 		<p>
 			<label>%s<br />
 			<input type="text" name="user_login" class="user_login input" value="" size="20" tabindex="10" /></label>
@@ -211,9 +188,12 @@ if (!class_exists('SimpleModalLogin')) {
 		<p class="nav">
 			<a class="simplemodal-login" href="%s">%s</a> | <a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>
 		</p>
+		</div>
+		<div class="simplemodal-login-activity" style="display:none;"></div>
 	</form>
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post" style="display:none;">
 		<div class="title">%s</div>
+		<div class="simplemodal-login-fields">
 		<p>
 			<label>%s<br />
 			<input type="text" name="user_login" class="user_login input" value="" size="20" tabindex="10" /></label>
@@ -241,6 +221,8 @@ if (!class_exists('SimpleModalLogin')) {
 		<p class="nav">
 			<a class="simplemodal-login" href="%s">%s</a> | <a class="simplemodal-register" href="%s">%s</a>
 		</p>
+		</div>
+		<div class="simplemodal-login-activity" style="display:none;"></div>
 	</form>
 	<div class="simplemodal-login-credit"><a href="http://www.ericmmartin.com/projects/simplemodal-login/">%s</a></div>
 </div>', 
@@ -252,6 +234,47 @@ if (!class_exists('SimpleModalLogin')) {
 				__('Register', $this->localizationDomain),
 				__('Powered by', $this->localizationDomain) . " SimpleModal Login"
 			);
+		}
+
+		function simplemodal_login_js() {
+			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", "jquery", "1.3.3", true);
+			
+			$script = sprintf("js/%s.js", $this->options['theme']);
+			wp_enqueue_script("simplemodal-login", $this->pluginurl . $script, null, $this->version, true);
+			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
+				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', $this->localizationDomain),
+				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', $this->localizationDomain),
+				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', $this->localizationDomain),
+				'empty_all' => __('<strong>ERROR</strong>: All fields are required.', $this->localizationDomain)
+			));
+			
+		}
+		
+		function simplemodal_login_loginout($link) {
+			if (!is_user_logged_in()) {
+				$link = str_replace('href=', 'class="simplemodal-login" href=', $link);
+			}
+			return $link;
+		}
+
+		function simplemodal_login_redirect($redirect_to, $req_redirect_to, $user) {
+		    if (!isset($user->user_login)) {
+				return $redirect_to;
+		    }
+		    if (function_exists('redirect_to_front_page')) {
+		    	//file_put_contents('log.txt', "function exists: redirect_to_front_page()\n", FILE_APPEND);
+		    	$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
+		    }
+			//file_put_contents('log.txt', "$redirect_to, $req_redirect_to\n", FILE_APPEND);
+			echo "<div id='simplemodal-login-redirect'>$redirect_to</div>";
+			exit();
+		}
+
+		function simplemodal_register($link) {
+			if (!is_user_logged_in()) {
+				$link = str_replace('href=', 'class="simplemodal-register" href=', $link);
+			}
+			return $link;
 		}
 
 		/**
