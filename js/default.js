@@ -8,9 +8,9 @@ jQuery(function ($) {
 	var SimpleModalLogin = {
 		init: function () {
 			var s = this;
-			s.error = null;
+			s.error = [];
 
-			$('.simplemodal-login, .simplemodal-register, .simplemodal-forgotpw').live('click', function (e) {
+			$('.simplemodal-login, .simplemodal-register, .simplemodal-forgotpw').live('click.simplemodal', function (e) {
 				var login = $('#loginform'),
 					lostpw = $('#lostpasswordform'),
 					register = $('#registerform');
@@ -54,7 +54,7 @@ jQuery(function ($) {
 			// focus on first element
 			$(':input:visible:first', form[0]).focus();
 
-			form.submit(function (e) {
+			form.unbind('submit.simplemodal').bind('submit.simplemodal', function (e) {
 				e.preventDefault();
 
 				// remove any existing errors
@@ -62,6 +62,12 @@ jQuery(function ($) {
 
 				if (SimpleModalLogin.isValid(form)) {
 					fields.hide(); activity.show();
+					
+					if (SimpleModalLogin.url && SimpleModalLogin.url.indexOf("redirect_to") !== -1) {
+						var p = SimpleModalLogin.url.split("=");
+						$('#redirect_to', form[0]).val(unescape(p[1]));
+					}
+
 					$.ajax({
 						url: form[0].action,
 						data: form.serialize(),
@@ -69,36 +75,28 @@ jQuery(function ($) {
 						cache: false,
 						success: function (resp) {
 							var data = $(document.createElement('div')).html(resp),
-								error = $('#login_error', data[0]),
-								loginform = $(SimpleModalLogin.form, data[0]),
 								redirect = $('#simplemodal-login-redirect', data[0]);
 
-							if (error.length) {
-								error.find('a').addClass('simplemodal-forgotpw');
-								$('p:first', form[0]).before(error);
-								activity.hide(); fields.show();
-							}
-							else if (loginform.length) {
-								SimpleModalLogin.showError(form, 'empty_both');
-								activity.hide(); fields.show();
-							}
-							else {
-								var rt = $('#redirect_to', form[0]).val(),
-									href = location.href;
-
+							if (redirect.length) {
+								var href = location.href;
 								if (redirect.length) {
 									href = redirect.html();
 								}
-								else if (rt.length) {
-									if (SimpleModalLogin.url && SimpleModalLogin.url.indexOf("redirect_to") !== -1) {
-										var p = SimpleModalLogin.url.split("=");
-										href = unescape(p[1]);
-									}
-									else {
-										href = rt;
-									}
-								} 
 								window.location = href;
+							}
+							else {
+								var error = $('#login_error', data[0]),
+								loginform = $(SimpleModalLogin.form, data[0]);
+
+								if (error.length) {
+									error.find('a').addClass('simplemodal-forgotpw');
+									$('p:first', form[0]).before(error);
+									activity.hide(); fields.show();
+								}
+								else if (loginform.length) {
+									SimpleModalLogin.showError(form, ['empty_both']);
+									activity.hide(); fields.show();
+								}
 							}
 						}
 					});
@@ -114,29 +112,30 @@ jQuery(function ($) {
 				email = $('.user_email', form[0]),
 				fields = $(':text, :password', form[0]),
 				valid = true;
+			
+			SimpleModalLogin.error = [];
+			
+			if (log.length && !$.trim(log.val())) {
+				SimpleModalLogin.error.push('empty_username');
+				valid = false;
+			}
+			else if (pass.length && !$.trim(pass.val())) {
+				SimpleModalLogin.error.push('empty_password');
+				valid = false;
+			}
+			else if (email.length && !$.trim(email.val())) {
+				SimpleModalLogin.error.push('empty_email');
+				valid = false;
+			}
 
-			
-			if (log && !$.trim(log.val())) {
-				SimpleModalLogin.error = 'empty_username';
-				valid = false;
-			}
-			else if (!pass && !$.trim(pass.val())) {
-				SimpleModalLogin.error = 'empty_password';
-				valid = false;
-			}
-			else if (!email && !$.trim(email.val())) {
-				SimpleModalLogin.error = 'empty_email';
-				valid = false;
-			}
-			
 			var empty_count = 0;
 			fields.each(function () {
 				if (!$.trim(this.value)) {
 					empty_count++;
 				}
 			});
-			if (empty_count === fields.length) {
-				SimpleModalLogin.error = 'empty_all';
+			if (fields.length > 1 && empty_count === fields.length) {
+				SimpleModalLogin.error = ['empty_all'];
 				valid = false;
 			}
 
@@ -147,10 +146,13 @@ jQuery(function ($) {
 				SimpleModalLoginL10n[key].replace(/&gt;/g, '>').replace(/&lt;/g, '<') :
 				key;
 		},
-		showError: function (form, key) {
+		showError: function (form, keys) {
+			keys = $.map(keys, function (key) {
+				return SimpleModalLogin.message(key);
+			});
 			$('p:first', form[0])
 				.before($('<div id="login_error"></div>').html(
-					SimpleModalLogin.message(key)
+					keys.join('<br/>')
 				));
 		}
 	};
