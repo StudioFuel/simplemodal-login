@@ -2,7 +2,7 @@
 Contributors: emartin24 
 Donate link: http://www.ericmmartin.com/donate/
 Tags: ajax, login, modal, admin, password, username, register
-Requires at least: 2.2.0
+Requires at least: 2.5.0
 Tested up to: 3.0
 Stable tag: 0.3
 

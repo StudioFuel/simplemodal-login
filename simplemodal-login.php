@@ -237,7 +237,7 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		function simplemodal_login_js() {
-			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", "jquery", "1.3.3", true);
+			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", array("jquery"), "1.3.3", true);
 			
 			$script = sprintf("js/%s.js", $this->options['theme']);
 			wp_enqueue_script("simplemodal-login", $this->pluginurl . $script, null, $this->version, true);
@@ -261,7 +261,8 @@ if (!class_exists('SimpleModalLogin')) {
 		    if (!isset($user->user_login)) {
 				return $redirect_to;
 		    }
-		    if (function_exists('redirect_to_front_page')) {
+		    if (is_plugin_active('peters-login-redirect/wplogin_redirect.php') 
+		    		&& function_exists('redirect_to_front_page')) {
 		    	//file_put_contents('log.txt', "function exists: redirect_to_front_page()\n", FILE_APPEND);
 		    	$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
 		    }
