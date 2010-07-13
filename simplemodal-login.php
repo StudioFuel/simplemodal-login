@@ -108,6 +108,83 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 		}
 
+		/**
+		 * @desc Adds the options subpanel
+		 */
+		function admin_menu_link() {
+			add_options_page('SimpleModal Login', 'SimpleModal Login', 10, basename(__FILE__), array(&$this, 'admin_options_page'));
+			add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'filter_plugin_actions'), 10, 2 );
+		}
+
+		/**
+		 * Adds settings/options page
+		 */
+		function admin_options_page() {
+			if (isset($_POST['simplemodal_login_save'])) {
+				check_admin_referer($this->nonce);
+				
+				$this->options['theme'] = $_POST['theme'];
+
+				$this->save_admin_options();
+
+				echo '<div class="updated"><p>' . __('Success! Your changes were successfully saved!', $this->localizationDomain) . '</p></div>';
+			}
+?>
+
+<div class="wrap">
+<div class="icon32" id="icon-options-general"><br/></div>
+<h2>SimpleModal Login <span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+<form method="post" id="simplemodal_login_options">
+<?php wp_nonce_field($this->nonce); ?>
+	<table class="form-table">
+		<tr valign="top">
+			<th scope="row"><?php _e('Theme:', $this->localizationDomain); ?></th>
+			<td>
+				<select name="theme" id="theme">
+				<?php foreach (glob($this->pluginpath . "css/*.css") as $cssfile) : 
+					$cssfile = basename($cssfile);
+					$theme = str_replace('.css', '', $cssfile);
+					
+					if (false === @file_exists($this->pluginpath . "js/{$theme}.js")) {
+						continue;
+					}
+				?>
+					<option value="<?php echo $theme; ?>" <?php echo ($theme == $this->options['theme']) ? "selected='selected'" : ""; ?>><?php echo $theme; ?></option>
+				<?php endforeach; ?>
+				</select>
+				<span class="description"><?php _e('The theme to use.', $this->localizationDomain); ?></span></td>
+		</tr>
+	</table>
+	<p class="submit">
+		<input type="submit" value="Save Changes" name="simplemodal_login_save" class="button-primary" />
+	</p>
+</form>
+<h2><?php _e('Themes', $this->localizationDomain); ?></h2>
+<p><?php _e('SimpleModal Login allows you to create your own themes.', $this->localizationDomain); ?></p>
+<p><?php _e('To create a new theme you\'ll need to add two files under the <code>simplemodal-login</code> plugin directory: <code>css/THEME.css</code> and <code>js/THEME.js</code>. Replace THEME with the name you would like to use. I suggest using one of the existing themes as a template.', $this->localizationDomain); ?></p>
+<h2><?php _e('Need Support?', $this->localizationDomain); ?></h2>
+<p><?php printf(__('For questions, issues or feature requests, please post them in the %s and make sure to tag the post with simplemodal-login.', $this->localizationDomain), '<a href="http://wordpress.org/tags/simplemodal-login?forum_id=10#postform">WordPress Forum</a>'); ?></p>
+<h2><?php _e('Like To Contribute?', $this->localizationDomain); ?></h2>
+<p><?php _e('If you would like to contribute, the following is a list of ways you can help:', $this->localizationDomain); ?></p>
+<ul>
+	<li>&raquo; <?php _e('Translate SimpleModal Login into your language', $this->localizationDomain); ?></li>
+	<li>&raquo; <?php _e('Blog about or link to SimpleModal Login so others can find out about it', $this->localizationDomain); ?></li>
+	<li>&raquo; <?php _e('Report issues, provide feedback, request features, etc.', $this->localizationDomain); ?></li>
+	<li>&raquo; <a href="http://wordpress.org/extend/plugins/simplemodal-login/"><?php _e('Rate SimpleModal Login on the WordPress Plugins Page', $this->localizationDomain); ?></a></li>
+	<li>&raquo; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KUL9VQ6U5VYCE&lc=US&item_name=Eric%20Martin%20%28ericmmartin%2ecom%29&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"><?php _e('Make a donation', $this->localizationDomain); ?></a></li>
+</ul>
+<h2><?php _e('Other Links', $this->localizationDomain); ?></h2>
+<ul>
+	<li>&raquo; <a href="http://twitter.com/ericmmartin">@ericmmartin</a> on Twitter</li>
+	<li>&raquo; <a href="http://www.ericmmartin.com">EricMMartin.com</a></li>
+	<li>&raquo; <a href="http://www.ericmmartin.com/projects/smcf/">SimpleModal Contact Form (SMCF)</a> - an Ajax powered modal contact form built on jQuery and SimpleModal</li>
+	<li>&raquo; <a href="http://www.ericmmartin.com/projects/wp-paginate/">WP-Paginate</a> - a simple and flexible pagination plugin for posts and comments</li>
+</ul>
+</div>
+
+<?php
+		}
+
 		function check_options() {
 			$options = null;
 			if (!$options = get_option($this->optionsName)) {
@@ -138,10 +215,36 @@ if (!class_exists('SimpleModalLogin')) {
 			return $options;
 		}
 
+		/**
+		 * @desc Adds the Settings link to the plugin activate/deactivate page
+		 */
+		function filter_plugin_actions($links, $file) {
+			$settings_link = '<a href="options-general.php?page=' . basename(__FILE__) . '">' . __('Settings', $this->localizationDomain) . '</a>';
+			array_unshift($links, $settings_link); // before other links
+
+			return $links;
+		}
+
+		/**
+		 * Retrieves the plugin options from the database.
+		 * @return array
+		 */
+		function get_options() {
+			$options = $this->check_options();
+			$this->options = $options;
+		}
+
+		/**
+		 * Checks to see if the given plugin is active.
+		 * @return boolean
+		 */
 		function is_plugin_active($plugin) {
 			return in_array($plugin, (array) get_option('active_plugins', array()));
 		}
 
+		/**
+		 * Enqueue's the CSS for the specified theme.
+		 */
 		function login_css() {
 			$style = sprintf("%s.css", $this->options['theme']);
 			wp_enqueue_style('simplemodal-login', $this->pluginurl . "css/$style", false, $this->version, 'screen');
@@ -288,7 +391,8 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		function login_js() {
-			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", array("jquery"), "1.3.3", true);
+			wp_deregister_script('jquery-simplemodal'); // prevent older version from loading
+			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", array("jquery"), "1.3.5", true);
 			
 			$script = sprintf("js/%s.js", $this->options['theme']);
 			wp_enqueue_script("simplemodal-login", $this->pluginurl . $script, null, $this->version, true);
@@ -328,106 +432,10 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		/**
-		 * Retrieves the plugin options from the database.
-		 * @return array
-		 */
-		function get_options() {
-			$options = $this->check_options();
-			$this->options = $options;
-		}
-
-		/**
 		 * Saves the admin options to the database.
 		 */
 		function save_admin_options(){
 			return update_option($this->optionsName, $this->options);
-		}
-
-		/**
-		 * @desc Adds the options subpanel
-		 */
-		function admin_menu_link() {
-			add_options_page('SimpleModal Login', 'SimpleModal Login', 10, basename(__FILE__), array(&$this, 'admin_options_page'));
-			add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'filter_plugin_actions'), 10, 2 );
-		}
-
-		/**
-		 * @desc Adds the Settings link to the plugin activate/deactivate page
-		 */
-		function filter_plugin_actions($links, $file) {
-			$settings_link = '<a href="options-general.php?page=' . basename(__FILE__) . '">' . __('Settings', $this->localizationDomain) . '</a>';
-			array_unshift($links, $settings_link); // before other links
-
-			return $links;
-		}
-
-		/**
-		 * Adds settings/options page
-		 */
-		function admin_options_page() {
-			if (isset($_POST['simplemodal_login_save'])) {
-				check_admin_referer($this->nonce);
-				
-				$this->options['theme'] = $_POST['theme'];
-
-				$this->save_admin_options();
-
-				echo '<div class="updated"><p>' . __('Success! Your changes were successfully saved!', $this->localizationDomain) . '</p></div>';
-			}
-?>
-
-<div class="wrap">
-<div class="icon32" id="icon-options-general"><br/></div>
-<h2>SimpleModal Login <span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-<form method="post" id="simplemodal_login_options">
-<?php wp_nonce_field($this->nonce); ?>
-	<table class="form-table">
-		<tr valign="top">
-			<th scope="row"><?php _e('Theme:', $this->localizationDomain); ?></th>
-			<td>
-				<select name="theme" id="theme">
-				<?php foreach (glob($this->pluginpath . "css/*.css") as $cssfile) : 
-					$cssfile = basename($cssfile);
-					$theme = str_replace('.css', '', $cssfile);
-					
-					if (false === @file_exists($this->pluginpath . "js/{$theme}.js")) {
-						continue;
-					}
-				?>
-					<option value="<?php echo $theme; ?>" <?php echo ($theme == $this->options['theme']) ? "selected='selected'" : ""; ?>><?php echo $theme; ?></option>
-				<?php endforeach; ?>
-				</select>
-				<span class="description"><?php _e('The theme to use.', $this->localizationDomain); ?></span></td>
-		</tr>
-	</table>
-	<p class="submit">
-		<input type="submit" value="Save Changes" name="simplemodal_login_save" class="button-primary" />
-	</p>
-</form>
-<h2><?php _e('Themes', $this->localizationDomain); ?></h2>
-<p><?php _e('SimpleModal Login allows you to create your own themes.', $this->localizationDomain); ?></p>
-<p><?php _e('To create a new theme you\'ll need to add two files under the <code>simplemodal-login</code> plugin directory: <code>css/THEME.css</code> and <code>js/THEME.js</code>. Replace THEME with the name you would like to use. I suggest using one of the existing themes as a template.', $this->localizationDomain); ?></p>
-<h2><?php _e('Need Support?', $this->localizationDomain); ?></h2>
-<p><?php printf(__('For questions, issues or feature requests, please post them in the %s and make sure to tag the post with simplemodal-login.', $this->localizationDomain), '<a href="http://wordpress.org/tags/simplemodal-login?forum_id=10#postform">WordPress Forum</a>'); ?></p>
-<h2><?php _e('Like To Contribute?', $this->localizationDomain); ?></h2>
-<p><?php _e('If you would like to contribute, the following is a list of ways you can help:', $this->localizationDomain); ?></p>
-<ul>
-	<li>&raquo; <?php _e('Translate SimpleModal Login into your language', $this->localizationDomain); ?></li>
-	<li>&raquo; <?php _e('Blog about or link to SimpleModal Login so others can find out about it', $this->localizationDomain); ?></li>
-	<li>&raquo; <?php _e('Report issues, provide feedback, request features, etc.', $this->localizationDomain); ?></li>
-	<li>&raquo; <a href="http://wordpress.org/extend/plugins/simplemodal-login/"><?php _e('Rate SimpleModal Login on the WordPress Plugins Page', $this->localizationDomain); ?></a></li>
-	<li>&raquo; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KUL9VQ6U5VYCE&lc=US&item_name=Eric%20Martin%20%28ericmmartin%2ecom%29&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"><?php _e('Make a donation', $this->localizationDomain); ?></a></li>
-</ul>
-<h2><?php _e('Other Links', $this->localizationDomain); ?></h2>
-<ul>
-	<li>&raquo; <a href="http://twitter.com/ericmmartin">@ericmmartin</a> on Twitter</li>
-	<li>&raquo; <a href="http://www.ericmmartin.com">EricMMartin.com</a></li>
-	<li>&raquo; <a href="http://www.ericmmartin.com/projects/smcf/">SimpleModal Contact Form (SMCF)</a> - an Ajax powered modal contact form built on jQuery and SimpleModal</li>
-	<li>&raquo; <a href="http://www.ericmmartin.com/projects/wp-paginate/">WP-Paginate</a> - a simple and flexible pagination plugin for posts and comments</li>
-</ul>
-</div>
-
-<?php
 		}
 	}
 }
