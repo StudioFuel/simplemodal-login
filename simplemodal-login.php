@@ -46,6 +46,11 @@ if (!class_exists('SimpleModalLogin')) {
 		var $version = '1.0';
 
 		/**
+		 * @var string The plugin version
+		 */
+		var $simplemodalVersion = '1.3.5';
+
+		/**
 		 * @var string The options string name for this plugin
 		 */
 		var $optionsName = 'simplemodal_login_options';
@@ -131,17 +136,17 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 ?>
 
-<div class="wrap">
-<div class="icon32" id="icon-options-general"><br/></div>
+<div class='wrap'>
+<div class='icon32' id='icon-options-general'><br/></div>
 <h2>SimpleModal Login <span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-<form method="post" id="simplemodal_login_options">
+<form method='post' id='simplemodal_login_options'>
 <?php wp_nonce_field($this->nonce); ?>
-	<table class="form-table">
-		<tr valign="top">
-			<th scope="row"><?php _e('Theme:', $this->localizationDomain); ?></th>
+	<table class='form-table'>
+		<tr valign='top'>
+			<th scope='row'><?php _e('Theme:', $this->localizationDomain); ?></th>
 			<td>
-				<select name="theme" id="theme">
-				<?php foreach (glob($this->pluginpath . "css/*.css") as $cssfile) : 
+				<select name='theme' id='theme'>
+				<?php foreach (glob($this->pluginpath . 'css/*.css') as $cssfile) : 
 					$cssfile = basename($cssfile);
 					$theme = str_replace('.css', '', $cssfile);
 					
@@ -149,14 +154,14 @@ if (!class_exists('SimpleModalLogin')) {
 						continue;
 					}
 				?>
-					<option value="<?php echo $theme; ?>" <?php echo ($theme == $this->options['theme']) ? "selected='selected'" : ""; ?>><?php echo $theme; ?></option>
+					<option value='<?php echo $theme; ?>' <?php echo ($theme == $this->options['theme']) ? "selected='selected'" : ''; ?>><?php echo $theme; ?></option>
 				<?php endforeach; ?>
 				</select>
-				<span class="description"><?php _e('The theme to use.', $this->localizationDomain); ?></span></td>
+				<span class='description'><?php _e('The theme to use.', $this->localizationDomain); ?></span></td>
 		</tr>
 	</table>
-	<p class="submit">
-		<input type="submit" value="Save Changes" name="simplemodal_login_save" class="button-primary" />
+	<p class='submit'>
+		<input type='submit' value='Save Changes' name='simplemodal_login_save' class='button-primary' />
 	</p>
 </form>
 <h2><?php _e('Themes', $this->localizationDomain); ?></h2>
@@ -170,15 +175,15 @@ if (!class_exists('SimpleModalLogin')) {
 	<li>&raquo; <?php _e('Translate SimpleModal Login into your language', $this->localizationDomain); ?></li>
 	<li>&raquo; <?php _e('Blog about or link to SimpleModal Login so others can find out about it', $this->localizationDomain); ?></li>
 	<li>&raquo; <?php _e('Report issues, provide feedback, request features, etc.', $this->localizationDomain); ?></li>
-	<li>&raquo; <a href="http://wordpress.org/extend/plugins/simplemodal-login/"><?php _e('Rate SimpleModal Login on the WordPress Plugins Page', $this->localizationDomain); ?></a></li>
-	<li>&raquo; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KUL9VQ6U5VYCE&lc=US&item_name=Eric%20Martin%20%28ericmmartin%2ecom%29&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"><?php _e('Make a donation', $this->localizationDomain); ?></a></li>
+	<li>&raquo; <a href='http://wordpress.org/extend/plugins/simplemodal-login/'><?php _e('Rate SimpleModal Login on the WordPress Plugins Page', $this->localizationDomain); ?></a></li>
+	<li>&raquo; <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KUL9VQ6U5VYCE&lc=US&item_name=Eric%20Martin%20%28ericmmartin%2ecom%29&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted'><?php _e('Make a donation', $this->localizationDomain); ?></a></li>
 </ul>
 <h2><?php _e('Other Links', $this->localizationDomain); ?></h2>
 <ul>
-	<li>&raquo; <a href="http://twitter.com/ericmmartin">@ericmmartin</a> on Twitter</li>
-	<li>&raquo; <a href="http://www.ericmmartin.com">EricMMartin.com</a></li>
-	<li>&raquo; <a href="http://www.ericmmartin.com/projects/smcf/">SimpleModal Contact Form (SMCF)</a> - an Ajax powered modal contact form built on jQuery and SimpleModal</li>
-	<li>&raquo; <a href="http://www.ericmmartin.com/projects/wp-paginate/">WP-Paginate</a> - a simple and flexible pagination plugin for posts and comments</li>
+	<li>&raquo; <a href='http://twitter.com/ericmmartin'>@ericmmartin</a> on Twitter</li>
+	<li>&raquo; <a href='http://www.ericmmartin.com'>EricMMartin.com</a></li>
+	<li>&raquo; <a href='http://www.ericmmartin.com/projects/smcf/'>SimpleModal Contact Form (SMCF)</a> - an Ajax powered modal contact form built on jQuery and SimpleModal</li>
+	<li>&raquo; <a href='http://www.ericmmartin.com/projects/wp-paginate/'>WP-Paginate</a> - a simple and flexible pagination plugin for posts and comments</li>
 </ul>
 </div>
 
@@ -246,7 +251,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * Enqueue's the CSS for the specified theme.
 		 */
 		function login_css() {
-			$style = sprintf("%s.css", $this->options['theme']);
+			$style = sprintf('%s.css', $this->options['theme']);
 			wp_enqueue_style('simplemodal-login', $this->pluginurl . "css/$style", false, $this->version, 'screen');
 			if (false !== @file_exists(TEMPLATEPATH . "simplemodal-login-$style")) {
 				wp_enqueue_style('simplemodal-login-form', get_template_directory_uri() . $style, false, $this->version, 'screen');
@@ -276,7 +281,7 @@ if (!class_exists('SimpleModalLogin')) {
 			do_action('login_form');
 			
 			printf('
-		<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90" /> %s</label></p>
+		<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" class="rememberme" value="forever" tabindex="90" /> %s</label></p>
 		<p class="submit">
 			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
 			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
@@ -391,11 +396,16 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		function login_js() {
-			wp_deregister_script('jquery-simplemodal'); // prevent older version from loading
-			wp_enqueue_script("jquery-simplemodal", $this->pluginurl . "js/jquery.simplemodal.js", array("jquery"), "1.3.5", true);
+			global $wp_scripts;
 			
-			$script = sprintf("js/%s.js", $this->options['theme']);
-			wp_enqueue_script("simplemodal-login", $this->pluginurl . $script, null, $this->version, true);
+			if (isset($wp_scripts->registered['jquery-simplemodal']) 
+					&& version_compare($wp_scripts->registered['jquery-simplemodal']->ver, $this->simplemodalVersion) === -1) {
+				wp_deregister_script('jquery-simplemodal'); // remove older versions
+			}
+			wp_enqueue_script('jquery-simplemodal', $this->pluginurl . 'js/jquery.simplemodal.js', array('jquery'), $this->simplemodalVersion, true);
+			
+			$script = sprintf('js/%s.js', $this->options['theme']);
+			wp_enqueue_script('simplemodal-login', $this->pluginurl . $script, null, $this->version, true);
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
 				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', $this->localizationDomain),
 				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', $this->localizationDomain),

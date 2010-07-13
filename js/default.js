@@ -11,21 +11,21 @@ jQuery(function ($) {
 			s.error = [];
 
 			$('.simplemodal-login, .simplemodal-register, .simplemodal-forgotpw').live('click.simplemodal', function (e) {
-				var login = $('#loginform'),
-					lostpw = $('#lostpasswordform'),
-					register = $('#registerform');
+				s.login = $('#loginform'),
+					s.lostpw = $('#lostpasswordform'),
+					s.register = $('#registerform');
 
 				if ($(this).hasClass('simplemodal-login')) {
 					s.form = '#loginform';
-					login.show(); lostpw.hide(); register.hide();
+					s.login.show(); s.lostpw.hide(); s.register.hide();
 				}
 				else if ($(this).hasClass('simplemodal-register')) {
 					s.form = '#registerform';
-					register.show(); login.hide(); lostpw.hide();
+					s.register.show(); s.login.hide(); s.lostpw.hide();
 				}
 				else {
 					s.form = '#lostpasswordform';
-					lostpw.show(); login.hide(); register.hide();
+					s.lostpw.show(); s.login.hide(); s.register.hide();
 				}
 				s.url = this.href;
 
@@ -45,26 +45,27 @@ jQuery(function ($) {
 			});
 		},
 		show: function (obj) {
-			SimpleModalLogin.dialog = obj || SimpleModalLogin.dialog; 
+			var s = SimpleModalLogin;
+			s.dialog = obj || s.dialog; 
 			var dialog = this,
-				form = $(SimpleModalLogin.form, SimpleModalLogin.dialog.data[0]),
+				form = $(s.form, s.dialog.data[0]),
 				fields = $('.simplemodal-login-fields', form[0]),
 				activity = $('.simplemodal-login-activity', form[0]);
 
-			// focus on first element
-			$(':input:visible:first', form[0]).focus();
+			// clear values and focus on first element
+			$('.input', form[0]).val('').first().focus();
 
 			form.unbind('submit.simplemodal').bind('submit.simplemodal', function (e) {
 				e.preventDefault();
 
-				// remove any existing errors
-				$('#login_error', form[0]).remove();
+				// remove any existing errors or messages
+				$('#login_error, .message', s.dialog.container[0]).remove();
 
-				if (SimpleModalLogin.isValid(form)) {
+				if (s.isValid(form)) {
 					fields.hide(); activity.show();
 					
-					if (SimpleModalLogin.url && SimpleModalLogin.url.indexOf("redirect_to") !== -1) {
-						var p = SimpleModalLogin.url.split("=");
+					if (s.url && s.url.indexOf("redirect_to") !== -1) {
+						var p = s.url.split("=");
 						$('#redirect_to', form[0]).val(unescape(p[1]));
 					}
 
@@ -86,30 +87,41 @@ jQuery(function ($) {
 							}
 							else {
 								var error = $('#login_error', data[0]),
-								loginform = $(SimpleModalLogin.form, data[0]);
+								message = $('.message', data[0]),
+								loginform = $(s.form, data[0]);
 
 								if (error.length) {
 									error.find('a').addClass('simplemodal-forgotpw');
 									$('p:first', form[0]).before(error);
 									activity.hide(); fields.show();
 								}
-								else if (loginform.length) {
-									SimpleModalLogin.showError(form, ['empty_both']);
+								else if (message.length) {
+									if (s.form === '#lostpasswordform' || s.form === '#registerform') {
+										form = s.login;
+										s.lostpw.hide(); s.register.hide();
+										s.login.show();
+									}
+									$('p:first', form[0]).before(message);
 									activity.hide(); fields.show();
 								}
+								else if (loginform.length) {
+									s.showError(form, ['empty_both']);
+									activity.hide(); fields.show();
+								}
+								$('.input', form[0]).first().focus();
 							}
 						}
 					});
 				}
 				else {
-					SimpleModalLogin.showError(form, SimpleModalLogin.error);
+					s.showError(form, s.error);
 				}
 			});
 		},
 		isValid: function (form) {
-			var log = $('.user_login', form[0]),
-				pass = $('.user_pass', form[0]),
-				email = $('.user_email', form[0]),
+			var log = $.trim($('.user_login', form[0])),
+				pass = $.trim($('.user_pass', form[0])),
+				email = $.trim($('.user_email', form[0])),
 				fields = $(':text, :password', form[0]),
 				valid = true;
 			

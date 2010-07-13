@@ -2,25 +2,31 @@
  * SimpleModal Login - WordPress Modal Ajax Login
  * Theme: osx
  * Revision:$Id$
- * Copyright (c) 2009 Eric Martin http://www.ericmmartin.com
+ * Copyright (c) 2010 Eric Martin http://www.ericmmartin.com
  */
 
 #simplemodal-login-overlay-osx {background-color:#000; cursor:wait;}
-#simplemodal-login-container-osx {background-color:#eee; color:#000; font-family:"Lucida Grande",Arial,sans-serif; font-size:12px; padding-bottom:4px; -moz-border-radius-bottomleft:6px; -webkit-border-bottom-left-radius:6px; -moz-border-radius-bottomright:6px; -webkit-border-bottom-right-radius:6px; -moz-box-shadow:0 0 64px #000; -webkit-box-shadow:0 0 64px #000;}
+#simplemodal-login-container-osx {background-color:#eee; color:#000; font-family:"Lucida Grande",Arial,sans-serif; font-size:12px; padding-bottom:4px; width:350px; -moz-border-radius-bottomleft:6px; -webkit-border-bottom-left-radius:6px; -moz-border-radius-bottomright:6px; -webkit-border-bottom-right-radius:6px; -moz-box-shadow:0 0 64px #000; -webkit-box-shadow:0 0 64px #000;}
+#simplemodal-login-container-osx .message,
 #simplemodal-login-container-osx #login_error {background-color: #ffebe8; border:1px solid #c00; margin-bottom:8px; padding:6px; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;}
-#simplemodal-login-container-osx #simplemodal-login-form {text-align:left;}
-#simplemodal-login-container-osx #simplemodal-login-form p {margin:0;}
+#simplemodal-login-container-osx .message {background-color:#ffffe0; border-color:#e6db55;}
 #simplemodal-login-container-osx a {color:#666;}
-#simplemodal-login-container-osx .osx-title {color:#000; background-color:#ddd; border-bottom:1px solid #ccc; font-size:14px; font-weight:bold; margin-bottom:10px; padding:6px 8px; text-shadow:0 1px 0 #f4f4f4;}
-#simplemodal-login-container-osx .close {display:none; float:right;}
+#simplemodal-login-container-osx p {margin:0;}
+#simplemodal-login-container-osx .title {color:#000; background-color:#ddd; border-bottom:1px solid #ccc; font-size:14px; font-weight:bold; margin-bottom:10px; padding:6px 8px; text-shadow:0 1px 0 #f4f4f4;}
+#simplemodal-login-container-osx .close {display:none; position:absolute; right:0;}
 #simplemodal-login-container-osx .close a {display:block; color:#777; font-size:14px; font-weight:bold; padding:6px 12px 0; text-decoration:none; text-shadow:0 1px 0 #f4f4f4;}
 #simplemodal-login-container-osx .close a:hover {color:#000; text-decoration:underline;}
-#simplemodal-login-container-osx #loginform {padding:0 12px 6px;}
-#simplemodal-login-container-osx #loginform .submit {padding:10px 0;}
-#simplemodal-login-container-osx #loginform .submit input {background-color:#ddd; border:1px solid #6d6d6d; margin-right:4px; padding:2px 6px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}
-#simplemodal-login-container-osx #loginform .submit input:hover {background-color:#63adf6;}
-#simplemodal-login-container-osx #user_pass, 
-#simplemodal-login-container-osx #user_login, 
-#simplemodal-login-container-osx #user_email {font-size:20px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:12px; border:1px solid #e5e5e5; background:#fbfbfb;}
-#simplemodal-login-container-osx .simplemodal-login-credit {text-align:center;}
-#simplemodal-login-container-osx .simplemodal-login-credit a {color:#bbb;}
+#simplemodal-login-container-osx .simplemodal-login-fields {padding:0 12px 6px;}
+#simplemodal-login-container-osx form .submit {float:right;}
+#simplemodal-login-container-osx form .submit input {background-color:#ddd; border:1px solid #6d6d6d; margin-right:4px; padding:2px 6px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}
+#simplemodal-login-container-osx form .submit input:hover {background-color:#63adf6;}
+#simplemodal-login-container-osx form .forgetmenot {color:#666; float:left; font-size:11px; line-height:19px;}
+#simplemodal-login-container-osx .nav {color:#666; clear:both; padding-top:16px; text-align:center;} 
+#simplemodal-login-container-osx .user_pass, 
+#simplemodal-login-container-osx .user_login, 
+#simplemodal-login-container-osx .user_email {font-size:24px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:12px; border:1px solid #e5e5e5; background:#fbfbfb;}
+#simplemodal-login-container-osx .rememberme {vertical-align:middle;}
+#simplemodal-login-container-osx .simplemodal-login-activity {background:url(../img/osx/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
+#simplemodal-login-container-osx .simplemodal-login-credit {font-size:10px; padding-top:10px; text-align:center;}
+#simplemodal-login-container-osx .simplemodal-login-credit a {color:#bbb; text-decoration:none;}
+#simplemodal-login-container-osx .simplemodal-login-credit a:hover {color:#999;}
