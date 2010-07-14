@@ -48,7 +48,7 @@ if (!class_exists('SimpleModalLogin')) {
 		/**
 		 * @var string The plugin version
 		 */
-		var $simplemodalVersion = '1.3.5';
+		var $simplemodalVersion = '1.3.6';
 
 		/**
 		 * @var string The options string name for this plugin

@@ -64,8 +64,8 @@ jQuery(function ($) {
 				if (s.isValid(form)) {
 					fields.hide(); activity.show();
 					
-					if (s.url && s.url.indexOf("redirect_to") !== -1) {
-						var p = s.url.split("=");
+					if (s.url && s.url.indexOf('redirect_to') !== -1) {
+						var p = s.url.split('=');
 						$('#redirect_to', form[0]).val(unescape(p[1]));
 					}
 
@@ -119,9 +119,9 @@ jQuery(function ($) {
 			});
 		},
 		isValid: function (form) {
-			var log = $.trim($('.user_login', form[0])),
-				pass = $.trim($('.user_pass', form[0])),
-				email = $.trim($('.user_email', form[0])),
+			var log = $('.user_login', form[0]),
+				pass = $('.user_pass', form[0]),
+				email = $('.user_email', form[0]),
 				fields = $(':text, :password', form[0]),
 				valid = true;
 			
