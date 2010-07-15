@@ -129,6 +129,7 @@ if (!class_exists('SimpleModalLogin')) {
 				check_admin_referer($this->nonce);
 				
 				$this->options['theme'] = $_POST['theme'];
+				$this->options['shortcut'] = (isset($_POST['shortcut']) && $_POST['shortcut'] === 'on') ? true : false;
 
 				$this->save_admin_options();
 
@@ -158,6 +159,13 @@ if (!class_exists('SimpleModalLogin')) {
 				<?php endforeach; ?>
 				</select>
 				<span class='description'><?php _e('The theme to use.', $this->localizationDomain); ?></span></td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><?php _e('Keystroke Shortcut:', $this->localizationDomain); ?></th>
+			<td><label for="shortcut">
+				<input type="checkbox" id="shortcut" name="shortcut" <?php echo ($this->options['shortcut'] === true) ? "checked='checked'" : ""; ?>/> <?php _e('Enable', $this->localizationDomain); ?></label><br/>
+				<span class='description'><?php _e('Select this option to enable the keystroke shortcut of CTRL + ALT + L to display the log in form. Allows you the ability to invoke the log in form without displaying the "Log In" link.', $this->localizationDomain); ?></span>
+				</td>
 		</tr>
 	</table>
 	<p class='submit'>
@@ -195,6 +203,7 @@ if (!class_exists('SimpleModalLogin')) {
 			if (!$options = get_option($this->optionsName)) {
 				// default options for a clean install
 				$options = array(
+					'shortcut' => true,
 					'theme' => 'default',
 					'version' => $this->version
 				);
@@ -211,6 +220,7 @@ if (!class_exists('SimpleModalLogin')) {
 					// pre v1.0 updates
 					if (isset($options['admin'])) {
 						unset($options['admin']);
+						$options['shortcut'] = true;
 						$options['version'] = $this->version;
 						update_option($this->optionsName, $options);
 					}
@@ -260,8 +270,8 @@ if (!class_exists('SimpleModalLogin')) {
 
 		function login_footer() {
 			$can_register = get_option('users_can_register');
-			printf('<div id="simplemodal-login-form">
-	<form name="loginform" id="loginform" action="%s" method="post" style="display:none;">
+			printf('<div id="simplemodal-login-form" style="display:none">
+	<form name="loginform" id="loginform" action="%s" method="post">
 		<div class="title">%s</div>
 		<div class="simplemodal-login-fields">
 		<p>
@@ -407,6 +417,7 @@ if (!class_exists('SimpleModalLogin')) {
 			$script = sprintf('js/%s.js', $this->options['theme']);
 			wp_enqueue_script('simplemodal-login', $this->pluginurl . $script, null, $this->version, true);
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
+				'shortcut' => $this->options['shortcut'] ? 'true' : 'false',
 				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', $this->localizationDomain),
 				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', $this->localizationDomain),
 				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', $this->localizationDomain),
