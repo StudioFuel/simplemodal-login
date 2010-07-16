@@ -320,7 +320,7 @@ if (!class_exists('SimpleModalLogin')) {
 	
 			if ($can_register) {
 				printf('
-	<form name="registerform" id="registerform" action="%s" method="post" style="display:none;">
+	<form name="registerform" id="registerform" action="%s" method="post">
 		<div class="title">%s</div>
 		<div class="simplemodal-login-fields">
 		<p>
@@ -363,7 +363,7 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 			
 			printf('
-	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post" style="display:none;">
+	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
 		<div class="title">%s</div>
 		<div class="simplemodal-login-fields">
 		<p>

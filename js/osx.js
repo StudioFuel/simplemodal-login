@@ -6,7 +6,6 @@
  */
 jQuery(function ($) {
 	var SimpleModalLogin = {
-		container: null,
 		init: function () {
 			var s = this;
 			s.error = [];
@@ -30,12 +29,11 @@ jQuery(function ($) {
 				}
 				s.url = this.href;
 
-				if (!$('#simplemodal-login-container').length) {
+				if (!$('#simplemodal-login-container-osx').length) {
 					$('#simplemodal-login-form').modal({
 						overlayId: 'simplemodal-login-overlay-osx',
 						containerId: 'simplemodal-login-container-osx',
 						closeHTML: '<div class="close"><a href="#" class="simplemodal-close">x</a></div>',
-						minHeight:80,
 						opacity:65,
 						position:['0', null],
 						overlayClose:true,
@@ -55,43 +53,26 @@ jQuery(function ($) {
 			}
 		},
 		open: function (d) {
-			var s = this;
+			var s = SimpleModalLogin;
+			s.modal = this;
 			s.container = d.container[0];
 			d.overlay.fadeIn('slow', function () {
-				$('#simplemodal-login-osx-content', s.container).show();
-				var title = $('#simplemodal-login-osx-title', s.container),
-					data = $('#simplemodal-login-form', s.container),
-					fields = $('.simplemodal-login-fields', s.container);
-				title.show(); fields.hide(); data.show();
+				d.data.show();
 				d.container.slideDown('slow', function () {
-					setTimeout(function () {
-						var h = fields.height() + title.height();
-						d.container.animate(
-							{height: h},
-							200,
-							function () {
-								$('div.close', s.container).show();
-								fields.show();
-
-								// focus on username
-								$('#user_login', s.container).focus();
-								d.container.css({height:'auto'});
-							}
-						);
-					}, 300);
+					s.modal.focus();	
 				});
 			});
 		},
 		show: function (obj) {
 			var s = SimpleModalLogin;
 			s.dialog = obj || s.dialog;
-			var dialog = this,
-				form = $(s.form, s.dialog.data[0]),
+			var form = $(s.form, s.dialog.data[0]),
 				fields = $('.simplemodal-login-fields', form[0]),
 				activity = $('.simplemodal-login-activity', form[0]);
 
-			// clear values and focus on first element
-			$('.input', form[0]).val('').first().focus();
+			// resize and focus dialog
+			!obj && s.modal.resize();
+			s.dialog.container.css({height:'auto'});
 
 			form.unbind('submit.simplemodal-login').bind('submit.simplemodal-login', function (e) {
 				e.preventDefault();
@@ -117,7 +98,7 @@ jQuery(function ($) {
 								redirect = $('#simplemodal-login-redirect', data[0]);
 
 							if (redirect.length) {
-								dialog.close();
+								s.modal.close();
 								var href = location.href;
 								if (redirect.length) {
 									href = redirect.html();
@@ -139,6 +120,7 @@ jQuery(function ($) {
 										form = s.login;
 										s.lostpw.hide(); s.register.hide();
 										s.login.show();
+										s.modal.resize();
 									}
 									$('p:first', form[0]).before(message);
 									activity.hide(); fields.show();
@@ -147,7 +129,6 @@ jQuery(function ($) {
 									s.showError(form, ['empty_both']);
 									activity.hide(); fields.show();
 								}
-								$('.input', form[0]).first().focus();
 							}
 						}
 					});

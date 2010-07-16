@@ -51,13 +51,14 @@ jQuery(function ($) {
 		show: function (obj) {
 			var s = SimpleModalLogin;
 			s.dialog = obj || s.dialog;
-			var dialog = this,
-				form = $(s.form, s.dialog.data[0]),
+			s.modal = s.modal || this;
+			var form = $(s.form, s.dialog.data[0]),
 				fields = $('.simplemodal-login-fields', form[0]),
 				activity = $('.simplemodal-login-activity', form[0]);
 
-			// clear values and focus on first element
-			$('.input', form[0]).val('').first().focus();
+			// resize and focus dialog
+			!obj && s.modal.resize();
+			s.dialog.container.css({height:'auto'});
 
 			form.unbind('submit.simplemodal-login').bind('submit.simplemodal-login', function (e) {
 				e.preventDefault();
@@ -104,6 +105,7 @@ jQuery(function ($) {
 										form = s.login;
 										s.lostpw.hide(); s.register.hide();
 										s.login.show();
+										s.modal.resize();
 									}
 									$('p:first', form[0]).before(message);
 									activity.hide(); fields.show();
@@ -112,7 +114,6 @@ jQuery(function ($) {
 									s.showError(form, ['empty_both']);
 									activity.hide(); fields.show();
 								}
-								$('.input', form[0]).first().focus();
 							}
 						}
 					});

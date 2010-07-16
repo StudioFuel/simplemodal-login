@@ -13,7 +13,7 @@
 #simplemodal-login-container-osx a {color:#666;}
 #simplemodal-login-container-osx p {margin:0;}
 #simplemodal-login-container-osx .title {color:#000; background-color:#ddd; border-bottom:1px solid #ccc; font-size:16px; font-weight:bold; margin-bottom:10px; padding:6px 8px; text-shadow:1px 1px 0 #f4f4f4;}
-#simplemodal-login-container-osx .close {display:none; position:absolute; right:0;}
+#simplemodal-login-container-osx .close {position:absolute; right:0;}
 #simplemodal-login-container-osx .close a {display:block; color:#777; font-size:14px; font-weight:bold; padding:6px 12px 0; text-decoration:none; text-shadow:1px 1px 0 #f4f4f4;}
 #simplemodal-login-container-osx .close a:hover {color:#000; text-decoration:underline;}
 #simplemodal-login-container-osx .simplemodal-login-fields {padding:0 12px 6px;}
