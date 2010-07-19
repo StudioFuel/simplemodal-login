@@ -248,6 +248,11 @@ if (!class_exists('SimpleModalLogin')) {
 			$options = $this->check_options();
 			$this->options = $options;
 		}
+		
+		function is_ajax() {
+			return isset($_SERVER['HTTP_X_REQUESTED_WITH']) 
+					&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+		}
 
 		/**
 		 * Checks to see if the given plugin is active.
@@ -434,7 +439,7 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		function login_redirect($redirect_to, $req_redirect_to, $user) {
-		    if (!isset($user->user_login)) {
+		    if (!isset($user->user_login) || !$this->is_ajax()) {
 				return $redirect_to;
 		    }
 		    if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php') 

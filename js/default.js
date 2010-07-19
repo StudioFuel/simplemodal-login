@@ -56,8 +56,8 @@ jQuery(function ($) {
 				fields = $('.simplemodal-login-fields', form[0]),
 				activity = $('.simplemodal-login-activity', form[0]);
 
-			// resize and focus dialog
-			!obj && s.modal.resize();
+			// update and focus dialog
+			!obj && s.modal.update();
 			s.dialog.container.css({height:'auto'});
 
 			form.unbind('submit.simplemodal-login').bind('submit.simplemodal-login', function (e) {
@@ -105,7 +105,7 @@ jQuery(function ($) {
 										form = s.login;
 										s.lostpw.hide(); s.register.hide();
 										s.login.show();
-										s.modal.resize();
+										s.modal.update();
 									}
 									$('p:first', form[0]).before(message);
 									activity.hide(); fields.show();
