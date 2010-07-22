@@ -5,28 +5,28 @@
  * Copyright (c) 2010 Eric Martin http://www.ericmmartin.com
  */
 
-#simplemodal-login-overlay {background-color:#eee;}
+#simplemodal-login-overlay {background-color:#ccc;}
 #simplemodal-login-container {width:350px;}
 #simplemodal-login-container a {color:#666;}
 #simplemodal-login-container .message,
 #simplemodal-login-container #login_error {background-color: #ffebe8; border:1px solid #c00; margin-bottom:8px; padding:6px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;}
 #simplemodal-login-container .message {background-color:#ffffe0; border-color:#e6db55;}
-#simplemodal-login-container form {background:#fff; border:1px solid #e5e5e5; font-weight:normal; margin-left:0 auto; padding:16px; text-align:left; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:5px; -moz-box-shadow:rgba(200,200,200,1) 0 4px 18px; -webkit-box-shadow:rgba(200,200,200,1) 0 4px 18px; box-shadow:rgba(200,200,200,1) 0 4px 18px;}
+#simplemodal-login-container form {background:#fff; border:1px solid #e5e5e5; font-weight:normal; margin-left:0 auto; padding:16px; text-align:left; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:5px; -moz-box-shadow:rgba(153,153,153,1) 0 4px 18px; -webkit-box-shadow:rgba(153,153,153,1) 0 4px 18px; box-shadow:rgba(153,153,153,1) 0 4px 18px;}
 #simplemodal-login-container form label {color:#777; font-size:13px;}
 #simplemodal-login-container form p {margin:0;}
-#simplemodal-login-container form .forgetmenot {font-size:11px; font-weight:normal; float:left; line-height:19px; margin-bottom:0; }
+#simplemodal-login-container form .forgetmenot {font-size:11px; font-weight:normal; float:left; line-height:19px; margin-bottom:0;}
 #simplemodal-login-container form .submit input {background-color:#257ea8; border:none; border:1px solid; color:#fff; font-weight:bold; padding:3px 10px; font-size:12px; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:11px; cursor:pointer; text-decoration:none; margin-top:-3px;}
 #simplemodal-login-container form .submit {float:right;}
 #simplemodal-login-container form .submit input.simplemodal-close {background-color:#c00;}
 #simplemodal-login-container .title {color:#257ea8; font-size:18px; padding-bottom:12px;}
-#simplemodal-login-container .nav {clear:both; color:#999; padding-top:16px; text-align:center;}
-#simplemodal-login-container .nav a {color:#999;}
+#simplemodal-login-container .nav {clear:both; color:#888; padding-top:16px; text-align:center;}
+#simplemodal-login-container .nav a {color:#888;}
 #simplemodal-login-container .reg_passmail {clear:both; color:#666; font-weight:bold; padding-bottom:16px; text-align:center;}
-#simplemodal-login-container .user_pass, 
-#simplemodal-login-container .user_login, 
+#simplemodal-login-container .user_pass,
+#simplemodal-login-container .user_login,
 #simplemodal-login-container .user_email {font-size:24px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:16px; border:1px solid #e5e5e5; background:#fbfbfb;}
 #simplemodal-login-container .rememberme {vertical-align:middle;}
-#simplemodal-login-container .simplemodal-login-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
-#simplemodal-login-container .simplemodal-login-credit {font-size:10px; padding-top:4px; text-align:center;}
-#simplemodal-login-container .simplemodal-login-credit a {color:#bbb; text-decoration:none;}
-#simplemodal-login-container .simplemodal-login-credit a:hover {color:#999;}
+.simplemodal-login-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
+.simplemodal-login-credit {font-size:11px; padding-top:4px; text-align:center;}
+.simplemodal-login-credit a {color:#aaa; text-decoration:none;}
+.simplemodal-login-credit a:hover {color:#777;}

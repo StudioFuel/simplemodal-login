@@ -16,7 +16,7 @@
 #simplemodal-login-container-osx .close {position:absolute; right:0;}
 #simplemodal-login-container-osx .close a {display:block; color:#777; font-size:14px; font-weight:bold; padding:6px 12px 0; text-decoration:none; text-shadow:1px 1px 0 #f4f4f4;}
 #simplemodal-login-container-osx .close a:hover {color:#000; text-decoration:underline;}
-#simplemodal-login-container-osx .simplemodal-login-fields {padding:0 12px 6px;}
+.simplemodal-login-fields {padding:0 12px 6px;}
 #simplemodal-login-container-osx form .submit {float:right;}
 #simplemodal-login-container-osx form .submit input {background-color:#ddd; border:1px solid #6d6d6d; margin-right:4px; padding:2px 6px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}
 #simplemodal-login-container-osx form .submit input:hover {background-color:#63adf6;}
@@ -27,7 +27,7 @@
 #simplemodal-login-container-osx .user_login, 
 #simplemodal-login-container-osx .user_email {font-size:24px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:12px; border:1px solid #e5e5e5; background:#fbfbfb;}
 #simplemodal-login-container-osx .rememberme {vertical-align:middle;}
-#simplemodal-login-container-osx .simplemodal-login-activity {background:url(../img/osx/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
-#simplemodal-login-container-osx .simplemodal-login-credit {font-size:10px; padding-top:10px; text-align:center;}
-#simplemodal-login-container-osx .simplemodal-login-credit a {color:#bbb; text-decoration:none;}
-#simplemodal-login-container-osx .simplemodal-login-credit a:hover {color:#999;}
+.simplemodal-login-activity {background:url(../img/osx/loading.gif) center no-repeat; height:16px; margin-top:12px;}
+.simplemodal-login-credit {font-size:10px; padding-top:10px; text-align:center;}
+.simplemodal-login-credit a {color:#bbb; text-decoration:none;}
+.simplemodal-login-credit a:hover {color:#999;}

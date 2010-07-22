@@ -60,7 +60,7 @@ jQuery(function ($) {
 			d.overlay.fadeIn('slow', function () {
 				d.data.show();
 				d.container.slideDown('slow', function () {
-					s.modal.focus();	
+					s.modal.focus();
 				});
 			});
 		},
@@ -72,14 +72,16 @@ jQuery(function ($) {
 				activity = $('.simplemodal-login-activity', form[0]);
 
 			// update and focus dialog
-			!obj && s.modal.update();
 			s.dialog.container.css({height:'auto'});
+
+			// remove any existing errors or messages
+			s.clear(s.dialog.container[0]);
 
 			form.unbind('submit.simplemodal-login').bind('submit.simplemodal-login', function (e) {
 				e.preventDefault();
 
 				// remove any existing errors or messages
-				$('#login_error, .message', s.dialog.container[0]).remove();
+				s.clear(s.dialog.container[0]);
 
 				if (s.isValid(form)) {
 					fields.hide(); activity.show();
@@ -131,6 +133,14 @@ jQuery(function ($) {
 									activity.hide(); fields.show();
 								}
 							}
+						},
+						error: function (xhr) {
+							$('p:first', form[0]).before(
+								$(document.createElement('div'))
+									.html('<strong>ERROR</strong>: ' + xhr.statusText)
+									.attr('id', 'login_error')
+							);
+							activity.hide(); fields.show();
 						}
 					});
 				}
@@ -149,10 +159,9 @@ jQuery(function ($) {
 				}
 			);
 		},
-		keydown: function (e) {
-			if (e.altKey && e.ctrlKey && e.keyCode === 76) {
-				$('.simplemodal-login').trigger('click.simplemodal-login');
-			}
+		/* utility functions */
+		clear: function (context) {
+			$('#login_error, .message', context).remove();
 		},
 		isValid: function (form) {
 			var log = $('.user_login', form[0]),
@@ -188,6 +197,11 @@ jQuery(function ($) {
 			}
 
 			return valid;
+		},
+		keydown: function (e) {
+			if (e.altKey && e.ctrlKey && e.keyCode === 76) {
+				$('.simplemodal-login').trigger('click.simplemodal-login');
+			}
 		},
 		message: function (key) {
 			return SimpleModalLoginL10n[key] ?

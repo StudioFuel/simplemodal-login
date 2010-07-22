@@ -2,7 +2,7 @@
 /*
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
-Description: A modal Ajax login for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
+Description: A modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
 Version: 1.0
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
