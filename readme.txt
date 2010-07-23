@@ -98,7 +98,7 @@ Just add the following to your `style.css` file:
 * Removed the 'Redirect after login?' option
 * Updated POT file (I18n/simplemodal-login.pot)
 * Added plugin update logic
-* Upgraded to SimpleModal 1.3.6
+* Upgraded to SimpleModal 1.4
 * Added additional screenshots
 
 = 0.3 =
