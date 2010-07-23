@@ -26,13 +26,15 @@ SimpleModal Login allows you to create your own custom themes. See the FAQ for d
 
 There are 3 options for using the SimpleModal Login features:
 
-a) Use `wp_loginout()` in your theme. SimpleModal Login will use the loginout filter to add an `class` to the WordPress Login link, which is what enables the plugin to work.
+a) Use `wp_loginout()` or `wp_register()` in your theme. SimpleModal Login will use the loginout and register filters to add the `simplemodal-login` class or `simplemodal-register` class to the respective link.
 
 b) Enable the Keystroke Shortcut option. Once this is enabled, you will be able to invoke SimpleModal Login using the `Ctrl+Alt+L` keystroke.
 
-c) Manually add a login link. If your theme does not use `wp_loginout()` and you still want to use this plugin, you can manually edit your theme and add a login link as follows:
+c) Manually add a Log In or Register link. If your theme does not use `wp_loginout()` and you still want to use this plugin, you can manually edit your theme and add a login link as follows:
 
-	<a href="/wp-login.php" class="simplemodal-login">Login</a>
+	<a href="/wp-login.php" class="simplemodal-login">Log In</a>
+
+	<a href="/wp-login.php?action=register" class="simplemodal-register">Register</a>
 
 *Configure*
 
@@ -64,7 +66,7 @@ I suggest copying one of the existing themes as a template to start with.
 
 *This is an advanced option for users familiar with HTML, PHP and WordPress.*
 
-Starting with SimpleModal Login 1.0, each form (login, register, password reset) has a filter available that allows you to modify the HTML as required.
+Starting with SimpleModal Login 1.0, each form (login, register, password reset) has a filter available that allows you to modify the HTML.
 
 The 3 available filters are:
 
@@ -84,7 +86,7 @@ To use the filter, you'll need to add code to your theme's functions.php file. F
     	return $form;
     }
 
-You'd probably want to start by copying the form HTML from main plugin file and then modifying to fit your requirements.
+You'd probably want to start by copying the form HTML from the appropriate function in the main plugin file and then modifying to fit your requirements.
 
 Things you'll need to change:
 

@@ -123,7 +123,7 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		/**
-		 * Adds settings/options page
+		 * @desc Adds settings/options page
 		 */
 		function admin_options_page() {
 			if (isset($_POST['simplemodal_login_save'])) {
@@ -215,6 +215,11 @@ if (!class_exists('SimpleModalLogin')) {
 <?php
 		}
 
+		/**
+		 * @desc Loads the SimpleModal Login options. Responsible for 
+		 * handling upgrades and default option values.
+		 * @return array
+		 */
 		function check_options() {
 			$options = null;
 			if (!$options = get_option($this->optionsName)) {
@@ -253,6 +258,7 @@ if (!class_exists('SimpleModalLogin')) {
 
 		/**
 		 * @desc Adds the Settings link to the plugin activate/deactivate page
+		 * @return string
 		 */
 		function filter_plugin_actions($links, $file) {
 			$settings_link = '<a href="options-general.php?page=' . basename(__FILE__) . '">' . __('Settings', 'simplemodal_login') . '</a>';
@@ -262,21 +268,24 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		/**
-		 * Retrieves the plugin options from the database.
-		 * @return array
+		 * @desc Retrieves the plugin options from the database.
 		 */
 		function get_options() {
 			$options = $this->check_options();
 			$this->options = $options;
 		}
 
+		/**
+		 * @desc Determines if request is an AJAX call
+		 * @return boolean
+		 */
 		function is_ajax() {
 			return isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 					&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 		}
 
 		/**
-		 * Checks to see if the given plugin is active.
+		 * @desc Checks to see if the given plugin is active.
 		 * @return boolean
 		 */
 		function is_plugin_active($plugin) {
@@ -284,7 +293,7 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		/**
-		 * Enqueue's the CSS for the specified theme.
+		 * @desc Enqueue's the CSS for the specified theme.
 		 */
 		function login_css() {
 			$style = sprintf('%s.css', $this->options['theme']);
@@ -294,6 +303,10 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 		}
 
+		/**
+		 * @desc Builds the login, registration, and password reset form HTML.
+		 * Calls filters for each form, then echo's the output.
+		 */
 		function login_footer() {
 			$output = '<div id="simplemodal-login-form" style="display:none">';
 
@@ -319,6 +332,12 @@ if (!class_exists('SimpleModalLogin')) {
 			echo $output;
 		}
 
+		/**
+		 * @desc Builds the login form HTML.
+		 * If using the simplemodal_login_form filter, copy and modify this code
+		 * into your function.
+		 * @return string
+		 */
 		function login_form() {
 			$output = sprintf('
 	<form name="loginform" id="loginform" action="%s" method="post">
@@ -381,6 +400,9 @@ if (!class_exists('SimpleModalLogin')) {
 			return $output;
 		}
 
+		/**
+		 * @desc Responsible for loading the necessary scripts and localizing JavaScript messages
+		 */
 		function login_js() {
 			global $wp_scripts;
 
@@ -402,6 +424,10 @@ if (!class_exists('SimpleModalLogin')) {
 
 		}
 
+		/**
+		 * @desc loginout filter that adds the simplemodal-login class to the "Log In" link
+		 * @return string
+		 */
 		function login_loginout($link) {
 			if (!is_user_logged_in()) {
 				$link = str_replace('href=', 'class="simplemodal-login" href=', $link);
@@ -409,6 +435,11 @@ if (!class_exists('SimpleModalLogin')) {
 			return $link;
 		}
 
+		/**
+		 * @desc login_redirect filter that determines where to redirect the user.
+		 * Supports Peter's Login Redirect plugin, if enabled.
+		 * @return string
+		 */
 		function login_redirect($redirect_to, $req_redirect_to, $user) {
 		    if (!isset($user->user_login) || !$this->is_ajax()) {
 				return $redirect_to;
@@ -421,6 +452,10 @@ if (!class_exists('SimpleModalLogin')) {
 			exit();
 		}
 
+		/**
+		 * @desc register filter that adds the simplemodal-register class to the "Register" link
+		 * @return string
+		 */
 		function register($link) {
 			if (!is_user_logged_in()) {
 				$link = str_replace('href=', 'class="simplemodal-register" href=', $link);
@@ -428,6 +463,12 @@ if (!class_exists('SimpleModalLogin')) {
 			return $link;
 		}
 
+		/**
+		 * @desc Builds the registration form HTML.
+		 * If using the simplemodal_registration_form filter, copy and modify this code
+		 * into your function.
+		 * @return string
+		 */
 		function registration_form() {
 			$output .= sprintf('
 <form name="registerform" id="registerform" action="%s" method="post">
@@ -481,6 +522,12 @@ if (!class_exists('SimpleModalLogin')) {
 			return $output;
 		}
 
+		/**
+		 * @desc Builds the reset password form HTML.
+		 * If using the simplemodal_reset_form filter, copy and modify this code
+		 * into your function.
+		 * @return string
+		 */
 		function reset_form() {
 			$output .= sprintf('
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
@@ -532,7 +579,7 @@ if (!class_exists('SimpleModalLogin')) {
 	}
 }
 
-//instantiate the class
+// instantiate the class
 if (class_exists('SimpleModalLogin')) {
 	$simplemodal_login = new SimpleModalLogin();
 	$simplemodal_login->users_can_register = get_option('users_can_register') ? true : false;
