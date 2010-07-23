@@ -69,6 +69,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @var string $pluginurl The url to this plugin
 		 */
 		var $pluginurl = '';
+
 		/**
 		 * @var string $pluginpath The path to this plugin
 		 */
@@ -78,6 +79,11 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @var array $options Stores the options for this plugin
 		 */
 		var $options = array();
+
+		/**
+		 * @var boolean $users_can_register Stores the option for this plugin
+		 */
+		var $users_can_register = null;
 
 		/**
 		 * PHP 4 Compatible Constructor
@@ -102,7 +108,7 @@ if (!class_exists('SimpleModalLogin')) {
 
 			//Actions
 			add_action('admin_menu', array(&$this, 'admin_menu_link'));
-			
+
 			if (!is_admin()) {
 				add_filter('login_redirect', array(&$this, 'login_redirect'), 5, 3);
 				add_filter('register', array(&$this, 'register'));
@@ -127,7 +133,7 @@ if (!class_exists('SimpleModalLogin')) {
 		function admin_options_page() {
 			if (isset($_POST['simplemodal_login_save'])) {
 				check_admin_referer($this->nonce);
-				
+
 				$this->options['theme'] = $_POST['theme'];
 				$this->options['shortcut'] = (isset($_POST['shortcut']) && $_POST['shortcut'] === 'on') ? true : false;
 
@@ -147,10 +153,10 @@ if (!class_exists('SimpleModalLogin')) {
 			<th scope='row'><?php _e('Theme:', $this->localizationDomain); ?></th>
 			<td>
 				<select name='theme' id='theme'>
-				<?php foreach (glob($this->pluginpath . 'css/*.css') as $cssfile) : 
+				<?php foreach (glob($this->pluginpath . 'css/*.css') as $cssfile) :
 					$cssfile = basename($cssfile);
 					$theme = str_replace('.css', '', $cssfile);
-					
+
 					if (false === @file_exists($this->pluginpath . "js/{$theme}.js")) {
 						continue;
 					}
@@ -161,10 +167,24 @@ if (!class_exists('SimpleModalLogin')) {
 				<span class='description'><?php _e('The theme to use.', $this->localizationDomain); ?></span></td>
 		</tr>
 		<tr valign="top">
+			<th scope="row"><?php _e('User Registration:', $this->localizationDomain); ?></th>
+			<td><label for="registration">
+				<input type="checkbox" id="registration" name="registration" <?php echo ($this->options['registration'] === true) ? "checked='checked'" : ""; ?>/> <?php _e('Enable', $this->localizationDomain); ?></label><br/>
+				<span class='description'><?php _e('Select this option to enable the user registration feature in SimpleModal Login. This requires the "Anyone can register" Membership option to be selected on your WordPress General Settings page.', $this->localizationDomain); ?></span>
+				</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><?php _e('Password Reset:', $this->localizationDomain); ?></th>
+			<td><label for="reset">
+				<input type="checkbox" id="reset" name="reset" <?php echo ($this->options['reset'] === true) ? "checked='checked'" : ""; ?>/> <?php _e('Enable', $this->localizationDomain); ?></label><br/>
+				<span class='description'><?php _e('Select this option to enable the password reset feature in SimpleModal Login.', $this->localizationDomain); ?></span>
+				</td>
+		</tr>
+		<tr valign="top">
 			<th scope="row"><?php _e('Keystroke Shortcut:', $this->localizationDomain); ?></th>
 			<td><label for="shortcut">
 				<input type="checkbox" id="shortcut" name="shortcut" <?php echo ($this->options['shortcut'] === true) ? "checked='checked'" : ""; ?>/> <?php _e('Enable', $this->localizationDomain); ?></label><br/>
-				<span class='description'><?php _e('Select this option to enable the keystroke shortcut of CTRL + ALT + L to display the log in form. Allows you the ability to invoke the log in form without displaying the "Log In" link.', $this->localizationDomain); ?></span>
+				<span class='description'><?php _e('Select this option to enable the keystroke shortcut of Ctrl+Alt+L to display the log in form. Allows you to invoke the log in form without displaying a "Log In" link.', $this->localizationDomain); ?></span>
 				</td>
 		</tr>
 	</table>
@@ -189,7 +209,7 @@ if (!class_exists('SimpleModalLogin')) {
 <h2><?php _e('Other Links', $this->localizationDomain); ?></h2>
 <ul>
 	<li>&raquo; <a href='http://twitter.com/ericmmartin'>@ericmmartin</a> on Twitter</li>
-	<li>&raquo; <a href='http://www.ericmmartin.com'>EricMMartin.com</a></li>
+	<li>&raquo; <a href='http://www.ericmmartin.com'>ericmmartin.com</a></li>
 	<li>&raquo; <a href='http://www.ericmmartin.com/projects/smcf/'>SimpleModal Contact Form (SMCF)</a> - an Ajax powered modal contact form built on jQuery and SimpleModal</li>
 	<li>&raquo; <a href='http://www.ericmmartin.com/projects/wp-paginate/'>WP-Paginate</a> - a simple and flexible pagination plugin for posts and comments</li>
 </ul>
@@ -205,7 +225,9 @@ if (!class_exists('SimpleModalLogin')) {
 				$options = array(
 					'shortcut' => true,
 					'theme' => 'default',
-					'version' => $this->version
+					'version' => $this->version,
+					'registration' => $this->users_can_register,
+					'reset' => true
 				);
 				update_option($this->optionsName, $options);
 			}
@@ -213,7 +235,7 @@ if (!class_exists('SimpleModalLogin')) {
 				// check for upgrades
 				if (isset($options['version'])) {
 					if ($options['version'] < $this->version) {
-						// upgrade logic goes here
+						// post v1.0 upgrade logic goes here
 					}
 				}
 				else {
@@ -222,11 +244,13 @@ if (!class_exists('SimpleModalLogin')) {
 						unset($options['admin']);
 						$options['shortcut'] = true;
 						$options['version'] = $this->version;
+						$options['registration'] = $this->users_can_register;
+						$options['reset'] = true;
 						update_option($this->optionsName, $options);
 					}
 				}
 			}
-			
+
 			return $options;
 		}
 
@@ -248,9 +272,9 @@ if (!class_exists('SimpleModalLogin')) {
 			$options = $this->check_options();
 			$this->options = $options;
 		}
-		
+
 		function is_ajax() {
-			return isset($_SERVER['HTTP_X_REQUESTED_WITH']) 
+			return isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 					&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 		}
 
@@ -274,7 +298,6 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		function login_footer() {
-			$can_register = get_option('users_can_register');
 			printf('<div id="simplemodal-login-form" style="display:none">
 	<form name="loginform" id="loginform" action="%s" method="post">
 		<div class="title">%s</div>
@@ -292,9 +315,9 @@ if (!class_exists('SimpleModalLogin')) {
 				__('Username', $this->localizationDomain),
 				__('Password', $this->localizationDomain)
 			);
-				
+
 			do_action('login_form');
-			
+
 			printf('
 		<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" class="rememberme" value="forever" tabindex="90" /> %s</label></p>
 		<p class="submit">
@@ -302,28 +325,28 @@ if (!class_exists('SimpleModalLogin')) {
 			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
 			<input type="hidden" name="testcookie" value="1" />
 		</p>
-		<p class="nav">', 
-				__('Remember Me', $this->localizationDomain), 
-				__('Log In', $this->localizationDomain), 
+		<p class="nav">',
+				__('Remember Me', $this->localizationDomain),
+				__('Log In', $this->localizationDomain),
 				__('Cancel', $this->localizationDomain)
 			);
 
-			if ($can_register) {
+			if ($this->users_can_register) {
 				printf('<a class="simplemodal-register" href="%s">%s</a> | ', site_url('wp-login.php?action=register', 'login'), __('Register', $this->localizationDomain));
 			}
-			
+
 			printf('
 		<a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>
 		</p>
 		</div>
 		<div class="simplemodal-login-activity" style="display:none;"></div>
-	</form>', 
+	</form>',
 				site_url('wp-login.php?action=lostpassword', 'login'),
 				__('Password Lost and Found', $this->localizationDomain),
 				__('Lost your password?', $this->localizationDomain)
 			);
-	
-			if ($can_register) {
+
+			if ($this->users_can_register) {
 				printf('
 	<form name="registerform" id="registerform" action="%s" method="post">
 		<div class="title">%s</div>
@@ -341,9 +364,9 @@ if (!class_exists('SimpleModalLogin')) {
 					__('Username', $this->localizationDomain),
 					__('E-mail', $this->localizationDomain)
 				);
-		
+
 				do_action('register_form');
-				
+
 				printf('
 		<p class="reg_passmail">%s</p>
 		<p class="submit">
@@ -355,18 +378,18 @@ if (!class_exists('SimpleModalLogin')) {
 		</p>
 		</div>
 		<div class="simplemodal-login-activity" style="display:none;"></div>
-	</form>', 
+	</form>',
 					__('A password will be e-mailed to you.', $this->localizationDomain),
-					__('Register', $this->localizationDomain), 
+					__('Register', $this->localizationDomain),
 					__('Cancel', $this->localizationDomain),
-					site_url('wp-login.php', 'login'), 
+					site_url('wp-login.php', 'login'),
 					__('Log in', $this->localizationDomain),
 					site_url('wp-login.php?action=lostpassword', 'login'),
 					__('Password Lost and Found', $this->localizationDomain),
 					__('Lost your password?', $this->localizationDomain)
 				);
 			}
-			
+
 			printf('
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
 		<div class="title">%s</div>
@@ -378,10 +401,10 @@ if (!class_exists('SimpleModalLogin')) {
 				site_url('wp-login.php?action=lostpassword', 'login_post'),
 				__('Reset Password', $this->localizationDomain),
 				__('Username or E-mail:', $this->localizationDomain)
-			);		
+			);
 
 			do_action('lostpassword_form');
-			
+
 			printf('
 		<p class="submit">
 			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
@@ -394,11 +417,11 @@ if (!class_exists('SimpleModalLogin')) {
 				site_url('wp-login.php', 'login'),
 				__('Log in', $this->localizationDomain)
 			);
-			
-			if ($can_register) {
+
+			if ($this->users_can_register) {
 				printf('| <a class="simplemodal-register" href="%s">%s</a>', site_url('wp-login.php?action=register', 'login'), __('Register', $this->localizationDomain));
 			}
-			
+
 			printf('
 		</p>
 		</div>
@@ -412,13 +435,13 @@ if (!class_exists('SimpleModalLogin')) {
 
 		function login_js() {
 			global $wp_scripts;
-			
-			if (isset($wp_scripts->registered['jquery-simplemodal']) 
+
+			if (isset($wp_scripts->registered['jquery-simplemodal'])
 					&& version_compare($wp_scripts->registered['jquery-simplemodal']->ver, $this->simplemodalVersion) === -1) {
 				wp_deregister_script('jquery-simplemodal'); // remove older versions
 			}
 			wp_enqueue_script('jquery-simplemodal', $this->pluginurl . 'js/jquery.simplemodal.js', array('jquery'), $this->simplemodalVersion, true);
-			
+
 			$script = sprintf('js/%s.js', $this->options['theme']);
 			wp_enqueue_script('simplemodal-login', $this->pluginurl . $script, null, $this->version, true);
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
@@ -428,9 +451,9 @@ if (!class_exists('SimpleModalLogin')) {
 				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', $this->localizationDomain),
 				'empty_all' => __('<strong>ERROR</strong>: All fields are required.', $this->localizationDomain)
 			));
-			
+
 		}
-		
+
 		function login_loginout($link) {
 			if (!is_user_logged_in()) {
 				$link = str_replace('href=', 'class="simplemodal-login" href=', $link);
@@ -442,7 +465,7 @@ if (!class_exists('SimpleModalLogin')) {
 		    if (!isset($user->user_login) || !$this->is_ajax()) {
 				return $redirect_to;
 		    }
-		    if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php') 
+		    if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php')
 		    		&& function_exists('redirect_to_front_page')) {
 		    	$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
 		    }
@@ -469,10 +492,11 @@ if (!class_exists('SimpleModalLogin')) {
 //instantiate the class
 if (class_exists('SimpleModalLogin')) {
 	$simplemodal_login = new SimpleModalLogin();
+	$simplemodal_login->users_can_register = get_option('users_can_register') ? true : false;
 }
 
 /*
- * The format of this plugin is based on the following plugin template: 
+ * The format of this plugin is based on the following plugin template:
  * http://pressography.com/plugins/wordpress-plugin-template/
  */
 ?>
