@@ -7,7 +7,6 @@
 
 #simplemodal-login-overlay {background-color:#ccc;}
 #simplemodal-login-container {width:350px;}
-#simplemodal-login-container a {color:#666;}
 #simplemodal-login-container .message,
 #simplemodal-login-container #login_error {background-color: #ffebe8; border:1px solid #c00; margin-bottom:8px; padding:6px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;}
 #simplemodal-login-container .message {background-color:#ffffe0; border-color:#e6db55;}
@@ -28,5 +27,5 @@
 #simplemodal-login-container .rememberme {vertical-align:middle;}
 .simplemodal-login-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
 .simplemodal-login-credit {font-size:11px; padding-top:4px; text-align:center;}
-.simplemodal-login-credit a {color:#aaa; text-decoration:none;}
+.simplemodal-login-credit a {color:#999; text-decoration:none;}
 .simplemodal-login-credit a:hover {color:#777;}

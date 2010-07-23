@@ -100,6 +100,7 @@ Just add the following to your `style.css` file:
 * Added plugin update logic
 * Upgraded to SimpleModal 1.4
 * Added additional screenshots
+* Added filters for each form (login, register, reset) output HTML to allow for customization
 
 = 0.3 =
 * Added uninstall cleanup code
