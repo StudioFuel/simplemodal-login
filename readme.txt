@@ -28,7 +28,7 @@ There are 3 options for using the SimpleModal Login features:
 
 a) Use `wp_loginout()` in your theme. SimpleModal Login will use the loginout filter to add an `class` to the WordPress Login link, which is what enables the plugin to work.
 
-b) Enable the Keystroke Shortcut option. Once this is enabled, you will be able to invoke SimpleModal Login using the `Ctrl + Alt + L` keystroke.
+b) Enable the Keystroke Shortcut option. Once this is enabled, you will be able to invoke SimpleModal Login using the `Ctrl+Alt+L` keystroke.
 
 c) Manually add a login link. If your theme does not use `wp_loginout()` and you still want to use this plugin, you can manually edit your theme and add a login link as follows:
 
@@ -59,6 +59,57 @@ There are no special upgrade requirements.
 To create a new theme you'll need to add two files under the `simplemodal-login` plugin directory: `css/THEME.css` and `js/THEME.js`. Replace THEME with the name you would like to use. 
 
 I suggest copying one of the existing themes as a template to start with.
+
+= How can I modify the form HTML? =
+
+*This is an advanced option for users familiar with HTML, PHP and WordPress.*
+
+Starting with SimpleModal Login 1.0, each form (login, register, password reset) has a filter available that allows you to modify the HTML as required.
+
+The 3 available filters are:
+
+* simplemodal_login_form
+* simplemodal_registration_form
+* simplemodal_reset_form
+
+To use the filter, you'll need to add code to your theme's functions.php file. For example:
+
+    add_filter('simplemodal_login_form', 'mytheme_login_form');
+    function mytheme_login_form($form) {
+    	// $form contains the SimpleModal Login login HTML
+
+		// do stuff here
+		
+		// you have to return the code that you want displayed
+    	return $form;
+    }
+
+You'd probably want to start by copying the form HTML from main plugin file and then modifying to fit your requirements.
+
+Things you'll need to change:
+
+1. Change $this->users_can_register
+
+* Create a `$users_can_register` variable in your function:
+
+    $users_can_register = get_option('users_can_register') ? true : false;
+
+* Replace `$this->users_can_register` with `$users_can_register`
+
+2. Change $this->options['registration'] and $this->options['reset']
+
+* Create an `$options` variables in your function:
+
+    $options = get_option('simplemodal_login_options');
+
+* Replace `$this->options['registration']` with `$options['registration']`
+
+* Replace `$this->options['reset']` with `$options['reset']`
+
+
+Here's a complete working example for the login HTML filter:
+http://pastebin.com/t7XAFhEM
+
 
 = Can I remove the "Powered by SimpleModal Login" link?  =
 
@@ -94,13 +145,13 @@ Just add the following to your `style.css` file:
 * Added support for Peter's Login Redirect plugin
 * Added loading screen for better usability
 * Added additional error handling
-* Added Keyboard Shortcut option and feature (Ctrl + Alt + L)
+* Added Keyboard Shortcut option and feature (Ctrl+Alt+L)
 * Removed the 'Redirect after login?' option
 * Updated POT file (I18n/simplemodal-login.pot)
 * Added plugin update logic
 * Upgraded to SimpleModal 1.4
 * Added additional screenshots
-* Added filters for each form (login, register, reset) output HTML to allow for customization
+* Added filters for each form (login, register, password reset) output HTML to allow for customization
 
 = 0.3 =
 * Added uninstall cleanup code

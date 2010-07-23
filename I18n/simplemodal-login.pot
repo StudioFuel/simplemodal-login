@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SimpleModal Login 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/simplemodal-login\n"
-"POT-Creation-Date: 2010-07-22 22:33+0000\n"
+"POT-Creation-Date: 2010-07-23 20:55+0000\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,42 +16,63 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: simplemodal-login.php:136
+#: simplemodal-login.php:144
 msgid "Success! Your changes were successfully saved!"
 msgstr ""
 
-#: simplemodal-login.php:147
+#: simplemodal-login.php:155
 msgid "Theme:"
 msgstr ""
 
-#: simplemodal-login.php:161
+#: simplemodal-login.php:169
 msgid "The theme to use."
 msgstr ""
 
-#: simplemodal-login.php:164
-msgid "Keystroke Shortcut:"
+#: simplemodal-login.php:172
+msgid "User Registration:"
 msgstr ""
 
-#: simplemodal-login.php:166
+#: simplemodal-login.php:174 simplemodal-login.php:181
+#: simplemodal-login.php:188
 msgid "Enable"
 msgstr ""
 
-#: simplemodal-login.php:167
+#: simplemodal-login.php:175
 msgid ""
-"Select this option to enable the keystroke shortcut of CTRL + ALT + L to "
-"display the log in form. Allows you the ability to invoke the log in form "
-"without displaying the \"Log In\" link."
+"Select this option to enable the user registration feature in SimpleModal "
+"Login. This requires the \"Anyone can register\" Membership option to be "
+"selected on your WordPress General Settings page."
 msgstr ""
 
-#: simplemodal-login.php:175
+#: simplemodal-login.php:179
+msgid "Password Reset:"
+msgstr ""
+
+#: simplemodal-login.php:182
+msgid ""
+"Select this option to enable the password reset feature in SimpleModal Login."
+msgstr ""
+
+#: simplemodal-login.php:186
+msgid "Keystroke Shortcut:"
+msgstr ""
+
+#: simplemodal-login.php:189
+msgid ""
+"Select this option to enable the keystroke shortcut of Ctrl+Alt+L to display "
+"the log in form. Allows you to invoke the log in form without displaying a "
+"\"Log In\" link."
+msgstr ""
+
+#: simplemodal-login.php:197
 msgid "Themes"
 msgstr ""
 
-#: simplemodal-login.php:176
+#: simplemodal-login.php:198
 msgid "SimpleModal Login allows you to create your own themes."
 msgstr ""
 
-#: simplemodal-login.php:177
+#: simplemodal-login.php:199
 msgid ""
 "To create a new theme you'll need to add two files under the "
 "<code>simplemodal-login</code> plugin directory: <code>css/THEME.css</code> "
@@ -59,135 +80,135 @@ msgid ""
 "use. I suggest using one of the existing themes as a template."
 msgstr ""
 
-#: simplemodal-login.php:178
+#: simplemodal-login.php:200
 msgid "Need Support?"
 msgstr ""
 
-#: simplemodal-login.php:179
+#: simplemodal-login.php:201
 #, php-format
 msgid ""
 "For questions, issues or feature requests, please post them in the %s and "
 "make sure to tag the post with simplemodal-login."
 msgstr ""
 
-#: simplemodal-login.php:180
+#: simplemodal-login.php:202
 msgid "Like To Contribute?"
 msgstr ""
 
-#: simplemodal-login.php:181
+#: simplemodal-login.php:203
 msgid ""
 "If you would like to contribute, the following is a list of ways you can "
 "help:"
 msgstr ""
 
-#: simplemodal-login.php:183
+#: simplemodal-login.php:205
 msgid "Translate SimpleModal Login into your language"
 msgstr ""
 
-#: simplemodal-login.php:184
+#: simplemodal-login.php:206
 msgid "Blog about or link to SimpleModal Login so others can find out about it"
 msgstr ""
 
-#: simplemodal-login.php:185
+#: simplemodal-login.php:207
 msgid "Report issues, provide feedback, request features, etc."
 msgstr ""
 
-#: simplemodal-login.php:186
+#: simplemodal-login.php:208
 msgid "Rate SimpleModal Login on the WordPress Plugins Page"
 msgstr ""
 
-#: simplemodal-login.php:187
+#: simplemodal-login.php:209
 msgid "Make a donation"
 msgstr ""
 
-#: simplemodal-login.php:189
+#: simplemodal-login.php:211
 msgid "Other Links"
 msgstr ""
 
-#: simplemodal-login.php:237
+#: simplemodal-login.php:263
 msgid "Settings"
 msgstr ""
 
-#: simplemodal-login.php:291
-msgid "Login"
-msgstr ""
-
-#: simplemodal-login.php:292 simplemodal-login.php:341
-msgid "Username"
-msgstr ""
-
-#: simplemodal-login.php:293
-msgid "Password"
-msgstr ""
-
-#: simplemodal-login.php:306
-msgid "Remember Me"
-msgstr ""
-
-#: simplemodal-login.php:307
-msgid "Log In"
-msgstr ""
-
-#: simplemodal-login.php:308 simplemodal-login.php:361
-#: simplemodal-login.php:393
-msgid "Cancel"
-msgstr ""
-
-#: simplemodal-login.php:312 simplemodal-login.php:340
-#: simplemodal-login.php:360 simplemodal-login.php:399
-msgid "Register"
-msgstr ""
-
-#: simplemodal-login.php:322 simplemodal-login.php:365
-msgid "Password Lost and Found"
-msgstr ""
-
-#: simplemodal-login.php:323 simplemodal-login.php:366
-msgid "Lost your password?"
-msgstr ""
-
-#: simplemodal-login.php:342
-msgid "E-mail"
-msgstr ""
-
-#: simplemodal-login.php:359
-msgid "A password will be e-mailed to you."
-msgstr ""
-
-#: simplemodal-login.php:363 simplemodal-login.php:395
-msgid "Log in"
-msgstr ""
-
-#: simplemodal-login.php:379
-msgid "Reset Password"
-msgstr ""
-
-#: simplemodal-login.php:380
-msgid "Username or E-mail:"
-msgstr ""
-
-#: simplemodal-login.php:392
-msgid "Get New Password"
-msgstr ""
-
-#: simplemodal-login.php:409
+#: simplemodal-login.php:321
 msgid "Powered by"
 msgstr ""
 
-#: simplemodal-login.php:426
+#: simplemodal-login.php:341
+msgid "Login"
+msgstr ""
+
+#: simplemodal-login.php:342 simplemodal-login.php:451
+msgid "Username"
+msgstr ""
+
+#: simplemodal-login.php:343
+msgid "Password"
+msgstr ""
+
+#: simplemodal-login.php:356
+msgid "Remember Me"
+msgstr ""
+
+#: simplemodal-login.php:357
+msgid "Log In"
+msgstr ""
+
+#: simplemodal-login.php:358 simplemodal-login.php:467
+#: simplemodal-login.php:513
+msgid "Cancel"
+msgstr ""
+
+#: simplemodal-login.php:364 simplemodal-login.php:450
+#: simplemodal-login.php:466 simplemodal-login.php:519
+msgid "Register"
+msgstr ""
+
+#: simplemodal-login.php:375 simplemodal-login.php:475
+msgid "Password Lost and Found"
+msgstr ""
+
+#: simplemodal-login.php:376 simplemodal-login.php:476
+msgid "Lost your password?"
+msgstr ""
+
+#: simplemodal-login.php:402
 msgid "<strong>ERROR</strong>: The username field is empty."
 msgstr ""
 
-#: simplemodal-login.php:427
+#: simplemodal-login.php:403
 msgid "<strong>ERROR</strong>: The password field is empty."
 msgstr ""
 
-#: simplemodal-login.php:428
+#: simplemodal-login.php:404
 msgid "<strong>ERROR</strong>: The email field is empty."
 msgstr ""
 
-#: simplemodal-login.php:429
+#: simplemodal-login.php:405
 msgid "<strong>ERROR</strong>: All fields are required."
+msgstr ""
+
+#: simplemodal-login.php:452
+msgid "E-mail"
+msgstr ""
+
+#: simplemodal-login.php:465
+msgid "A password will be e-mailed to you."
+msgstr ""
+
+#: simplemodal-login.php:469 simplemodal-login.php:515
+msgid "Log in"
+msgstr ""
+
+#: simplemodal-login.php:499
+msgid "Reset Password"
+msgstr ""
+
+#: simplemodal-login.php:500
+msgid "Username or E-mail:"
+msgstr ""
+
+#: simplemodal-login.php:512
+msgid "Get New Password"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -200,9 +221,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"A modal Ajax login, registration, and password reset feature "
-"for WordPress which utilizes jQuery and the SimpleModal " 
-"jQuery plugin."
+"A modal Ajax login, registration, and password reset feature for WordPress "
+"which utilizes jQuery and the SimpleModal jQuery plugin."
 msgstr ""
 
 #. Author of the plugin/theme
