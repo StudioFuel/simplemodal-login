@@ -457,8 +457,10 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function register($link) {
-			if (!is_user_logged_in()) {
-				$link = str_replace('href=', 'class="simplemodal-register" href=', $link);
+			if ($this->users_can_register && $this->options['registration']) {
+				if (!is_user_logged_in()) {
+					$link = str_replace('href=', 'class="simplemodal-register" href=', $link);
+				}
 			}
 			return $link;
 		}
