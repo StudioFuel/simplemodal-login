@@ -1,14 +1,16 @@
 === SimpleModal Login ===
 Contributors: emartin24 
 Donate link: http://www.ericmmartin.com/donate/
-Tags: ajax, login, modal, admin, password, username, register, manage, redirect
+Tags: ajax, login, modal, admin, password, username, register, manage, redirect, widget, plugin
 Requires at least: 2.5.0
 Tested up to: 3.0
-Stable tag: 0.3
+Stable tag: 1.0
 
 SimpleModal Login provides a modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery
 
 == Description ==
+
+**SimpleModal Login 1.0 now includes a user registration and password reset feature!**
 
 SimpleModal Login provides a modal Ajax login, registration and password reset feature for WordPress and utilizes jQuery and the SimpleModal jQuery plugin.
 
@@ -131,11 +133,11 @@ Just add the following to your `style.css` file:
 1. Login screen with the default theme.
 2. Register screen with the default theme.
 3. Reset Password screen with the default theme.
-4. Loading screen with the default theme.
+4. Activity indicator with the default theme.
 5. Login screen with the osx theme.
 6. Register screen with the osx theme.
 7. Reset Password screen with the osx theme.
-8. Loading screen with the osx theme.
+8. Activity indicator with the osx theme.
 9. The SimpleModal Login admin settings page
 
 
@@ -145,7 +147,7 @@ Just add the following to your `style.css` file:
 * Added Password Reset feature
 * Added Register feature
 * Added support for Peter's Login Redirect plugin
-* Added loading screen for better usability
+* Added activity indicator for better usability
 * Added additional error handling
 * Added Keyboard Shortcut option and feature (Ctrl+Alt+L)
 * Removed the 'Redirect after login?' option
