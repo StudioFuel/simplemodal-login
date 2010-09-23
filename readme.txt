@@ -3,8 +3,8 @@ Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
 Tags: ajax, login, modal, admin, password, username, register, manage, redirect, widget, plugin
 Requires at least: 2.5.0
-Tested up to: 3.0
-Stable tag: 1.0
+Tested up to: 3.0.1
+Stable tag: 1.0.1
 
 SimpleModal Login provides a modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery
 
@@ -15,7 +15,7 @@ SimpleModal Login provides a modal Ajax login, registration, and password reset 
 SimpleModal Login provides a modal Ajax login, registration and password reset feature for WordPress and utilizes jQuery and the SimpleModal jQuery plugin.
 
 SimpleModal Login allows you to create your own custom themes. See the FAQ for details.
-	
+
 == Installation ==
 
 *Install and Activate*
@@ -34,9 +34,9 @@ b) Enable the Keystroke Shortcut option. Once this is enabled, you will be able 
 
 c) Manually add a Log In or Register link. If your theme does not use `wp_loginout()` and you still want to use this plugin, you can manually edit your theme and add a login link as follows:
 
-	<a href="/wp-login.php" class="simplemodal-login">Log In</a>
+    <a href="/wp-login.php" class="simplemodal-login">Log In</a>
 
-	<a href="/wp-login.php?action=register" class="simplemodal-register">Register</a>
+    <a href="/wp-login.php?action=register" class="simplemodal-register">Register</a>
 
 *Configure*
 
@@ -55,6 +55,29 @@ c) Manually add a Log In or Register link. If your theme does not use `wp_logino
 There are no special upgrade requirements.
 
 == Frequently Asked Questions ==
+
+= How can I redirect back to the current page after login? =
+
+The WordPress `wp_loginout()` function allows for an optional `$redirect` parameter which is the URL where the user will be sent after a logging in our logging out.
+
+To have the user return to the page they were on, update the code to look like:
+
+    <?php wp_loginout($_SERVER['REQUEST_URI']); ?>
+
+If you are using the Meta Widget (Appearance > Widgets), to use this feature, you may need to delete the Meta Widget and add the code to your sidebar.php file manually.
+
+For example, after you delete the Meta Widget, open sidebar.php (in your theme) and add* the following code:
+
+    <ul>
+        <?php wp_register(); ?>
+        <li><?php wp_loginout(); ?></li>
+    </ul>
+
+    * Place it wherever you'd like to display and modify the code to fit your needs.
+
+Lastly, if you've manually added a log in link, you can change it to:
+
+    <a href="/wp-login.php?redirect_to=<?php echo $_SERVER['REQUEST_URI']; ?>" class="simplemodal-login">Log In</a>
 
 = How can I create my own custom theme? =
 
@@ -80,12 +103,12 @@ To use the filter, you'll need to add code to your theme's functions.php file. F
 
     add_filter('simplemodal_login_form', 'mytheme_login_form');
     function mytheme_login_form($form) {
-    	// $form contains the SimpleModal Login login HTML
+        // $form contains the SimpleModal Login login HTML
 
-		// do stuff here
-		
-		// you have to return the code that you want displayed
-    	return $form;
+        // do stuff here
+
+        // you have to return the code that you want displayed
+        return $form;
     }
 
 You'd probably want to start by copying the form HTML from the appropriate function in the main plugin file and then modifying to fit your requirements.
@@ -123,7 +146,7 @@ Yup, see below. A donation is appreciated, but not required ;)
 
 Just add the following to your `style.css` file:
 
-	.simplemodal-login-credit {display:none;}
+    .simplemodal-login-credit {display:none;}
 
 
 *Have a question, comments or feature requests? Be sure to let me know.*
@@ -142,6 +165,9 @@ Just add the following to your `style.css` file:
 
 
 == Changelog ==
+
+= 1.0.1 =
+* Added support for the wp_loginout() redirect parameter (See FAQ for usage)
 
 = 1.0 =
 * Added Password Reset feature

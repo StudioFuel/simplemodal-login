@@ -73,7 +73,7 @@ jQuery(function ($) {
 
 					if (s.url && s.url.indexOf('redirect_to') !== -1) {
 						var p = s.url.split('=');
-						$('#redirect_to', form[0]).val(unescape(p[1]));
+						form.append($('<input type="hidden" name="redirect_to">').val(unescape(p[1])));
 					}
 
 					$.ajax({
@@ -87,7 +87,7 @@ jQuery(function ($) {
 
 							if (redirect.length) {
 								var href = location.href;
-								if (redirect.length) {
+								if (redirect.html().length) {
 									href = redirect.html();
 								}
 								window.location = href;
