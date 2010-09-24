@@ -16,7 +16,7 @@ SimpleModal Login provides a modal Ajax login, registration and password reset f
 
 SimpleModal Login allows you to create your own custom themes. See the FAQ for details.
 
-Translations: http://plugins.svn.wordpress.org/simplemodal-contact-form-smcf/I18n (check the version number for the correct file)
+Translations: http://plugins.svn.wordpress.org/simplemodal-login/I18n (check the version number for the correct file)
 
 
 
