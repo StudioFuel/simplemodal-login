@@ -4,7 +4,7 @@ Donate link: http://www.ericmmartin.com/donate/
 Tags: ajax, login, modal, admin, password, username, register, manage, redirect, widget, plugin
 Requires at least: 2.5.0
 Tested up to: 3.0.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 SimpleModal Login provides a modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery
 
@@ -15,6 +15,10 @@ SimpleModal Login provides a modal Ajax login, registration, and password reset 
 SimpleModal Login provides a modal Ajax login, registration and password reset feature for WordPress and utilizes jQuery and the SimpleModal jQuery plugin.
 
 SimpleModal Login allows you to create your own custom themes. See the FAQ for details.
+
+Translations: http://plugins.svn.wordpress.org/simplemodal-contact-form-smcf/I18n (check the version number for the correct file)
+
+
 
 == Installation ==
 
@@ -66,18 +70,19 @@ To have the user return to the page they were on, update the code to look like:
 
 If you are using the Meta Widget (Appearance > Widgets), to use this feature, you may need to delete the Meta Widget and add the code to your sidebar.php file manually.
 
-For example, after you delete the Meta Widget, open sidebar.php (in your theme) and add* the following code:
+For example, after you delete the Meta Widget, open sidebar.php (in your theme) and add[1] the following code:
 
     <ul>
         <?php wp_register(); ?>
         <li><?php wp_loginout(); ?></li>
     </ul>
 
-* Place it wherever you'd like to display and modify the code to fit your needs.
+[1] Place it wherever you'd like to display and modify the code to fit your needs.
 
 Lastly, if you've manually added a log in link, you can change it to:
 
     <a href="/wp-login.php?redirect_to=<?php echo $_SERVER['REQUEST_URI']; ?>" class="simplemodal-login">Log In</a>
+
 
 
 = How can I create my own custom theme? =
@@ -137,7 +142,7 @@ Things you'll need to change:
 
 
 Here's a complete working example for the login HTML filter:
-http://pastebin.com/t7XAFhEM
+http://pastebin.com/Gy0jtUQk
 
 
 = Can I remove the "Powered by SimpleModal Login" link?  =
@@ -168,6 +173,11 @@ Just add the following to your `style.css` file:
 
 
 == Changelog ==
+
+= 1.0.2 =
+* Changed language domain name from simplemodal_login to simplemodal-login (this will affect translation file names)
+* Updated pastebin.com link with language domain name updates
+* Translations can now be found at http://plugins.svn.wordpress.org/simplemodal-login/I18n/
 
 = 1.0.1 =
 * Added support for the wp_loginout() redirect parameter (See FAQ for usage)
