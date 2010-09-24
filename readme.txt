@@ -73,11 +73,12 @@ For example, after you delete the Meta Widget, open sidebar.php (in your theme) 
         <li><?php wp_loginout(); ?></li>
     </ul>
 
-    * Place it wherever you'd like to display and modify the code to fit your needs.
+* Place it wherever you'd like to display and modify the code to fit your needs.
 
 Lastly, if you've manually added a log in link, you can change it to:
 
     <a href="/wp-login.php?redirect_to=<?php echo $_SERVER['REQUEST_URI']; ?>" class="simplemodal-login">Log In</a>
+
 
 = How can I create my own custom theme? =
 
@@ -86,6 +87,7 @@ Lastly, if you've manually added a log in link, you can change it to:
 To create a new theme you'll need to add two files under the `simplemodal-login` plugin directory: `css/THEME.css` and `js/THEME.js`. Replace THEME with the name you would like to use. 
 
 I suggest copying one of the existing themes as a template to start with.
+
 
 = How can I modify the form HTML? =
 
@@ -141,6 +143,7 @@ http://pastebin.com/t7XAFhEM
 = Can I remove the "Powered by SimpleModal Login" link?  =
 
 Yup, see below. A donation is appreciated, but not required ;)
+
 
 = How can I remove the "Powered by SimpleModal Login" link?  =
 
