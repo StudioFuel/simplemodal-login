@@ -1,0 +1,234 @@
+# Translation of the WordPress plugin SimpleModal Login 1.0 by Eric Martin.
+# Copyright (C) 2010 Eric Martin
+# This file is distributed under the same license as the SimpleModal Login package.
+# Eric Martin <eric@ericmmartin.com>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SimpleModal Login 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/simplemodal-login\n"
+"POT-Creation-Date: 2010-07-24 05:20+0000\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: simplemodal-login.php:139
+msgid "Success! Your changes were successfully saved!"
+msgstr ""
+
+#: simplemodal-login.php:150
+msgid "Theme:"
+msgstr ""
+
+#: simplemodal-login.php:164
+msgid "The theme to use."
+msgstr ""
+
+#: simplemodal-login.php:167
+msgid "User Registration:"
+msgstr ""
+
+#: simplemodal-login.php:169 simplemodal-login.php:176
+#: simplemodal-login.php:183
+msgid "Enable"
+msgstr ""
+
+#: simplemodal-login.php:170
+msgid ""
+"Select this option to enable the user registration feature in SimpleModal "
+"Login. This requires the \"Anyone can register\" Membership option to be "
+"selected on your WordPress General Settings page."
+msgstr ""
+
+#: simplemodal-login.php:174
+msgid "Password Reset:"
+msgstr ""
+
+#: simplemodal-login.php:177
+msgid ""
+"Select this option to enable the password reset feature in SimpleModal Login."
+msgstr ""
+
+#: simplemodal-login.php:181
+msgid "Keystroke Shortcut:"
+msgstr ""
+
+#: simplemodal-login.php:184
+msgid ""
+"Select this option to enable the keystroke shortcut of Ctrl+Alt+L to display "
+"the log in form. Allows you to invoke the log in form without displaying a "
+"\"Log In\" link."
+msgstr ""
+
+#: simplemodal-login.php:192
+msgid "Themes"
+msgstr ""
+
+#: simplemodal-login.php:193
+msgid "SimpleModal Login allows you to create your own themes."
+msgstr ""
+
+#: simplemodal-login.php:194
+msgid ""
+"To create a new theme you'll need to add two files under the "
+"<code>simplemodal-login</code> plugin directory: <code>css/THEME.css</code> "
+"and <code>js/THEME.js</code>. Replace THEME with the name you would like to "
+"use. I suggest using one of the existing themes as a template."
+msgstr ""
+
+#: simplemodal-login.php:195
+msgid "Need Support?"
+msgstr ""
+
+#: simplemodal-login.php:196
+#, php-format
+msgid ""
+"For questions, issues or feature requests, please post them in the %s and "
+"make sure to tag the post with simplemodal-login."
+msgstr ""
+
+#: simplemodal-login.php:197
+msgid "Like To Contribute?"
+msgstr ""
+
+#: simplemodal-login.php:198
+msgid ""
+"If you would like to contribute, the following is a list of ways you can "
+"help:"
+msgstr ""
+
+#: simplemodal-login.php:200
+msgid "Translate SimpleModal Login into your language"
+msgstr ""
+
+#: simplemodal-login.php:201
+msgid "Blog about or link to SimpleModal Login so others can find out about it"
+msgstr ""
+
+#: simplemodal-login.php:202
+msgid "Report issues, provide feedback, request features, etc."
+msgstr ""
+
+#: simplemodal-login.php:203
+msgid "Rate SimpleModal Login on the WordPress Plugins Page"
+msgstr ""
+
+#: simplemodal-login.php:204
+msgid "Make a donation"
+msgstr ""
+
+#: simplemodal-login.php:206
+msgid "Other Links"
+msgstr ""
+
+#: simplemodal-login.php:264
+msgid "Settings"
+msgstr ""
+
+#: simplemodal-login.php:329
+msgid "Powered by"
+msgstr ""
+
+#: simplemodal-login.php:355
+msgid "Login"
+msgstr ""
+
+#: simplemodal-login.php:356 simplemodal-login.php:489
+msgid "Username"
+msgstr ""
+
+#: simplemodal-login.php:357
+msgid "Password"
+msgstr ""
+
+#: simplemodal-login.php:370
+msgid "Remember Me"
+msgstr ""
+
+#: simplemodal-login.php:371
+msgid "Log In"
+msgstr ""
+
+#: simplemodal-login.php:372 simplemodal-login.php:505
+#: simplemodal-login.php:557
+msgid "Cancel"
+msgstr ""
+
+#: simplemodal-login.php:378 simplemodal-login.php:488
+#: simplemodal-login.php:504 simplemodal-login.php:563
+msgid "Register"
+msgstr ""
+
+#: simplemodal-login.php:389 simplemodal-login.php:513
+msgid "Password Lost and Found"
+msgstr ""
+
+#: simplemodal-login.php:390 simplemodal-login.php:514
+msgid "Lost your password?"
+msgstr ""
+
+#: simplemodal-login.php:419
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr ""
+
+#: simplemodal-login.php:420
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr ""
+
+#: simplemodal-login.php:421
+msgid "<strong>ERROR</strong>: The email field is empty."
+msgstr ""
+
+#: simplemodal-login.php:422
+msgid "<strong>ERROR</strong>: All fields are required."
+msgstr ""
+
+#: simplemodal-login.php:490
+msgid "E-mail"
+msgstr ""
+
+#: simplemodal-login.php:503
+msgid "A password will be e-mailed to you."
+msgstr ""
+
+#: simplemodal-login.php:507 simplemodal-login.php:559
+msgid "Log in"
+msgstr ""
+
+#: simplemodal-login.php:543
+msgid "Reset Password"
+msgstr ""
+
+#: simplemodal-login.php:544
+msgid "Username or E-mail:"
+msgstr ""
+
+#: simplemodal-login.php:556
+msgid "Get New Password"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "SimpleModal Login"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.ericmmartin.com/projects/simplemodal-login/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A modal Ajax login, registration, and password reset feature for WordPress "
+"which utilizes jQuery and the SimpleModal jQuery plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Eric Martin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.ericmmartin.com"
+msgstr ""
