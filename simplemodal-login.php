@@ -474,7 +474,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function registration_form() {
-			$output .= sprintf('
+			$output = sprintf('
 <form name="registerform" id="registerform" action="%s" method="post">
 	<div class="title">%s</div>
 	<div class="simplemodal-login-fields">
@@ -535,7 +535,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function reset_form() {
-			$output .= sprintf('
+			$output = sprintf('
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
 		<div class="title">%s</div>
 		<div class="simplemodal-login-fields">
