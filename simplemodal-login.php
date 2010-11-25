@@ -118,7 +118,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @desc Adds the options subpanel
 		 */
 		function admin_menu_link() {
-			add_options_page('SimpleModal Login', 'SimpleModal Login', 10, basename(__FILE__), array(&$this, 'admin_options_page'));
+			add_options_page('SimpleModal Login', 'SimpleModal Login', 'manage_options', basename(__FILE__), array(&$this, 'admin_options_page'));
 			add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'filter_plugin_actions'), 10, 2 );
 		}
 
