@@ -3,10 +3,9 @@
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
-Version: 1.0.2
+Version: 1.0.3
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
-Revision: $Id$
 */
 
 /*  Copyright 2010 Eric Martin (eric@ericmmartin.com)
@@ -43,12 +42,12 @@ if (!class_exists('SimpleModalLogin')) {
 		/**
 		 * @var string The plugin version
 		 */
-		var $version = '1.0.2';
+		var $version = '1.0.3';
 
 		/**
 		 * @var string The plugin version
 		 */
-		var $simplemodalVersion = '1.4';
+		var $simplemodalVersion = '1.4.1';
 
 		/**
 		 * @var string The options string name for this plugin
@@ -118,7 +117,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @desc Adds the options subpanel
 		 */
 		function admin_menu_link() {
-			add_options_page('SimpleModal Login', 'SimpleModal Login', 10, basename(__FILE__), array(&$this, 'admin_options_page'));
+			add_options_page('SimpleModal Login', 'SimpleModal Login', 'manage_options', basename(__FILE__), array(&$this, 'admin_options_page'));
 			add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'filter_plugin_actions'), 10, 2 );
 		}
 
@@ -205,6 +204,7 @@ if (!class_exists('SimpleModalLogin')) {
 </ul>
 <h2><?php _e('Other Links', 'simplemodal-login'); ?></h2>
 <ul>
+	<li>&raquo; <a href='https://github.com/ericmmartin/simplemodal-login'>SimpleModal Login</a> on GitHub</li>
 	<li>&raquo; <a href='http://twitter.com/ericmmartin'>@ericmmartin</a> on Twitter</li>
 	<li>&raquo; <a href='http://www.ericmmartin.com'>ericmmartin.com</a></li>
 	<li>&raquo; <a href='http://www.ericmmartin.com/projects/smcf/'>SimpleModal Contact Form (SMCF)</a> - an Ajax powered modal contact form built on jQuery and SimpleModal</li>

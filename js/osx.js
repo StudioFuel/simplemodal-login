@@ -1,7 +1,6 @@
 /*
  * SimpleModal Login
  * Theme: osx
- * Revision: $Id$
  * Copyright (c) 2010 Eric Martin http://www.ericmmartin.com
  */
 jQuery(function ($) {
@@ -123,7 +122,6 @@ jQuery(function ($) {
 										form = s.login;
 										s.lostpw.hide(); s.register.hide();
 										s.login.show();
-										s.modal.update();
 									}
 									$('p:first', form[0]).before(message);
 									activity.hide(); fields.show();
