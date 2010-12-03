@@ -6,7 +6,7 @@ Description: A modal Ajax login, registration, and password reset feature for Wo
 Version: 1.0.2
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
-Revision: $Id: simplemodal-login.php 293227 2010-09-24 17:43:11Z emartin24 $
+Revision: $Id$
 */
 
 /*  Copyright 2010 Eric Martin (eric@ericmmartin.com)
@@ -474,6 +474,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function registration_form() {
+
 			$output = sprintf('
 <form name="registerform" id="registerform" action="%s" method="post">
 	<div class="title">%s</div>

@@ -1,7 +1,7 @@
 /*
  * SimpleModal Login
  * Theme: osx
- * Revision: $Id: osx.js 292945 2010-09-23 22:35:59Z emartin24 $
+ * Revision: $Id$
  * Copyright (c) 2010 Eric Martin http://www.ericmmartin.com
  */
 jQuery(function ($) {
