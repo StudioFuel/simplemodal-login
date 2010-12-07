@@ -357,7 +357,9 @@ if (!class_exists('SimpleModalLogin')) {
 				__('Password', 'simplemodal-login')
 			);
 
+			ob_start();
 			do_action('login_form');
+			$output .= ob_get_clean();
 
 			$output .= sprintf('
 		<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" class="rememberme" value="forever" tabindex="90" /> %s</label></p>
@@ -472,7 +474,8 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function registration_form() {
-			$output .= sprintf('
+
+			$output = sprintf('
 <form name="registerform" id="registerform" action="%s" method="post">
 	<div class="title">%s</div>
 	<div class="simplemodal-login-fields">
@@ -490,7 +493,9 @@ if (!class_exists('SimpleModalLogin')) {
 				__('E-mail', 'simplemodal-login')
 			);
 
+			ob_start();
 			do_action('register_form');
+			$output .= ob_get_clean();
 
 			$output .= sprintf('
 	<p class="reg_passmail">%s</p>
@@ -531,7 +536,7 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function reset_form() {
-			$output .= sprintf('
+			$output = sprintf('
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
 		<div class="title">%s</div>
 		<div class="simplemodal-login-fields">
@@ -544,7 +549,9 @@ if (!class_exists('SimpleModalLogin')) {
 				__('Username or E-mail:', 'simplemodal-login')
 			);
 
+			ob_start();
 			do_action('lostpassword_form');
+			$output .= ob_get_clean();
 
 			$output .= sprintf('
 		<p class="submit">

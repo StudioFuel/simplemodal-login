@@ -1,0 +1,222 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/simplemodal-login\n"
+"POT-Creation-Date: 2010-07-24 05:20+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: redcom <redcom@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Romanian\n"
+"X-Poedit-Country: Romania\n"
+
+#: simplemodal-login.php:139
+msgid "Success! Your changes were successfully saved!"
+msgstr "In regula! Schimbarile au fost salvate!"
+
+#: simplemodal-login.php:150
+msgid "Theme:"
+msgstr "Tema:"
+
+#: simplemodal-login.php:164
+msgid "The theme to use."
+msgstr "Tema utilizata."
+
+#: simplemodal-login.php:167
+msgid "User Registration:"
+msgstr "Inregistrare utilizator:"
+
+#: simplemodal-login.php:169
+#: simplemodal-login.php:176
+#: simplemodal-login.php:183
+msgid "Enable"
+msgstr "Marcat"
+
+#: simplemodal-login.php:170
+msgid "Select this option to enable the user registration feature in SimpleModal Login. This requires the \"Anyone can register\" Membership option to be selected on your WordPress General Settings page."
+msgstr "Selecteaza aceasta optiune pentru a permite utilizatorilor sa se inregistreze folosind SimpleModal. Optiunea \"Oricine se poate inregistra\" sau \"Anyone can register\" din modulul \"Setari generale\"\  sau \"General Settings\" trebuie activata."
+
+#: simplemodal-login.php:174
+msgid "Password Reset:"
+msgstr "Resetare Parola:"
+
+#: simplemodal-login.php:177
+msgid "Select this option to enable the password reset feature in SimpleModal Login."
+msgstr "Activeaza aceasta optiune pentru a permite folosirea functiei de \"Resetare Parola\" in aplicatia SimpleModal."
+
+#: simplemodal-login.php:181
+msgid "Keystroke Shortcut:"
+msgstr "Scurtaturi tastatura:"
+
+#: simplemodal-login.php:184
+msgid "Select this option to enable the keystroke shortcut of Ctrl+Alt+L to display the log in form. Allows you to invoke the log in form without displaying a \"Log In\" link."
+msgstr "Activeaza aceasta optiune pentru a permite folosirea scurtaturilor de genul Ctrl+Alt+L pentru activarea formularului de autentificare. Permite invocarea formularului de autentificare fara a folosi butonul de \"\Log In\" sau \"Autentificare\"."
+
+#: simplemodal-login.php:192
+msgid "Themes"
+msgstr "Teme:"
+
+#: simplemodal-login.php:193
+msgid "SimpleModal Login allows you to create your own themes."
+msgstr "Aplicatia SimpleModal permite crearea propriilor teme."
+
+#: simplemodal-login.php:194
+msgid "To create a new theme you'll need to add two files under the <code>simplemodal-login</code> plugin directory: <code>css/THEME.css</code> and <code>js/THEME.js</code>. Replace THEME with the name you would like to use. I suggest using one of the existing themes as a template."
+msgstr "Pentru a crea o noua tema, trebuie sa adaugi doua fisiere in directorul plugin <code>simplemodal-login</code>: <code>css/THEME.css</code> si <code>js/THEME.js</code>. Inlocuieste THEME cu numele pe care vrei sa il folosesti. As sugera folosirea unei teme existente ca matrice. "
+
+#: simplemodal-login.php:195
+msgid "Need Support?"
+msgstr "Ai nevoie de ajutor?"
+
+#: simplemodal-login.php:196
+#, php-format
+msgid "For questions, issues or feature requests, please post them in the %s and make sure to tag the post with simplemodal-login."
+msgstr "Pentru intrebari, probleme sau inbunatatiri, va rog sa le trimiteti catre %s . Etichetati cerintele ca \"simplemodal-login\". "
+
+#: simplemodal-login.php:197
+msgid "Like To Contribute?"
+msgstr "Vrei sa contribui?"
+
+#: simplemodal-login.php:198
+msgid "If you would like to contribute, the following is a list of ways you can help:"
+msgstr "Daca vrei sa contribui, urmatoarea lista exemplifica modalitatile prin care ai putea sa ajuti."
+
+#: simplemodal-login.php:200
+msgid "Translate SimpleModal Login into your language"
+msgstr "Traduce aplicatia \"SimpleModal Login\" in limba ta."
+
+#: simplemodal-login.php:201
+msgid "Blog about or link to SimpleModal Login so others can find out about it"
+msgstr "Adauga un link sau scrie o recenzie despre \"SimpleModal Login\" pentru a raspandi informatia despre aplicatie."
+
+#: simplemodal-login.php:202
+msgid "Report issues, provide feedback, request features, etc."
+msgstr "Raporteaza probleme, adauga o recenzie, cere o inbunatatire, etc."
+
+#: simplemodal-login.php:203
+msgid "Rate SimpleModal Login on the WordPress Plugins Page"
+msgstr "Recomanda SimpleModal Login pe pagina WordPress Plugins."
+
+#: simplemodal-login.php:204
+msgid "Make a donation"
+msgstr "Acorda o donatie."
+
+#: simplemodal-login.php:206
+msgid "Other Links"
+msgstr "Alte adrese."
+
+#: simplemodal-login.php:264
+msgid "Settings"
+msgstr "Setari"
+
+#: simplemodal-login.php:329
+msgid "Powered by"
+msgstr "Ajutat de"
+
+#: simplemodal-login.php:355
+msgid "Login"
+msgstr "Autentificare"
+
+#: simplemodal-login.php:356
+#: simplemodal-login.php:489
+msgid "Username"
+msgstr "Utilizator"
+
+#: simplemodal-login.php:357
+msgid "Password"
+msgstr "Parola"
+
+#: simplemodal-login.php:370
+msgid "Remember Me"
+msgstr "Reamintete-ti de mine."
+
+#: simplemodal-login.php:371
+msgid "Log In"
+msgstr "Autentifica"
+
+#: simplemodal-login.php:372
+#: simplemodal-login.php:505
+#: simplemodal-login.php:557
+msgid "Cancel"
+msgstr "Renunta"
+
+#: simplemodal-login.php:378
+#: simplemodal-login.php:488
+#: simplemodal-login.php:504
+#: simplemodal-login.php:563
+msgid "Register"
+msgstr "Inregistrare"
+
+#: simplemodal-login.php:389
+#: simplemodal-login.php:513
+msgid "Password Lost and Found"
+msgstr "Reamintire parola"
+
+#: simplemodal-login.php:390
+#: simplemodal-login.php:514
+msgid "Lost your password?"
+msgstr "Ai uitat parola?"
+
+#: simplemodal-login.php:419
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr "<strong>EROARE</strong>: Campul utilizatorului este gol."
+
+#: simplemodal-login.php:420
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr "<strong>EROARE</strong>: Campul parola este gol."
+
+#: simplemodal-login.php:421
+msgid "<strong>ERROR</strong>: The email field is empty."
+msgstr "<strong>EROARE</strong>: Campul email este gol."
+
+#: simplemodal-login.php:422
+msgid "<strong>ERROR</strong>: All fields are required."
+msgstr "<strong>EROARE</strong>: Toate campurile sunt obligatorii."
+
+#: simplemodal-login.php:490
+msgid "E-mail"
+msgstr "E-mail"
+
+#: simplemodal-login.php:503
+msgid "A password will be e-mailed to you."
+msgstr "Parola iti va fi trimisa prin email."
+
+#: simplemodal-login.php:507
+#: simplemodal-login.php:559
+msgid "Log in"
+msgstr "Autentifica"
+
+#: simplemodal-login.php:543
+msgid "Reset Password"
+msgstr "Reseteaza Parola"
+
+#: simplemodal-login.php:544
+msgid "Username or E-mail:"
+msgstr "Utilizator sau E-mail:"
+
+#: simplemodal-login.php:556
+msgid "Get New Password"
+msgstr "Cere o noua parola."
+
+#. Plugin Name of the plugin/theme
+msgid "SimpleModal Login"
+msgstr "SimpleModal Login"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.ericmmartin.com/projects/simplemodal-login/"
+msgstr "http://www.ericmmartin.com/projects/simplemodal-login/"
+
+#. Description of the plugin/theme
+msgid "A modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery plugin."
+msgstr "O fereastra Ajax pentru autentificare, inregistrare si resetarea parolei pentru WordPress care foloseste librariile JQuery si plugin-ul SimpleModal"
+
+#. Author of the plugin/theme
+msgid "Eric Martin"
+msgstr "Eric Martin"
+
+#. Author URI of the plugin/theme
+msgid "http://www.ericmmartin.com"
+msgstr "http://www.ericmmartin.com"
+
