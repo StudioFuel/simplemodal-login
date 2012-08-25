@@ -3,12 +3,12 @@
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
-Version: 1.0.4
+Version: 1.0.5
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
 
-/*  Copyright 2010 Eric Martin (eric@ericmmartin.com)
+/*  Copyright 2012 Eric Martin (eric@ericmmartin.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -42,12 +42,12 @@ if (!class_exists('SimpleModalLogin')) {
 		/**
 		 * @var string The plugin version
 		 */
-		var $version = '1.0.4';
+		var $version = '1.0.5';
 
 		/**
 		 * @var string The plugin version
 		 */
-		var $simplemodalVersion = '1.4.1';
+		var $simplemodalVersion = '1.4.2';
 
 		/**
 		 * @var string The options string name for this plugin
@@ -216,7 +216,7 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		/**
-		 * @desc Loads the SimpleModal Login options. Responsible for 
+		 * @desc Loads the SimpleModal Login options. Responsible for
 		 * handling upgrades and default option values.
 		 * @return array
 		 */
@@ -323,12 +323,6 @@ if (!class_exists('SimpleModalLogin')) {
 				$output .= apply_filters('simplemodal_reset_form', $reset_form);
 			}
 
-			$output .= sprintf('
-	<div class="simplemodal-login-credit"><a href="http://www.ericmmartin.com/projects/simplemodal-login/">%s</a></div>
-</div>',
-				__('Powered by', 'simplemodal-login') . " SimpleModal Login"
-			);
-
 			echo $output;
 		}
 
@@ -375,8 +369,8 @@ if (!class_exists('SimpleModalLogin')) {
 			);
 
 			if ($this->users_can_register && $this->options['registration']) {
-				$output .= sprintf('<a class="simplemodal-register" href="%s">%s</a>', 
-					site_url('wp-login.php?action=register', 'login'), 
+				$output .= sprintf('<a class="simplemodal-register" href="%s">%s</a>',
+					site_url('wp-login.php?action=register', 'login'),
 					__('Register', 'simplemodal-login')
 				);
 			}
@@ -393,7 +387,7 @@ if (!class_exists('SimpleModalLogin')) {
 				);
 			}
 
-			$output .= ' 
+			$output .= '
 			</p>
 			</div>
 			<div class="simplemodal-login-activity" style="display:none;"></div>
@@ -418,6 +412,8 @@ if (!class_exists('SimpleModalLogin')) {
 			wp_enqueue_script('simplemodal-login', $this->pluginurl . $script, null, $this->version, true);
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
 				'shortcut' => $this->options['shortcut'] ? 'true' : 'false',
+				'logged_in' => is_user_logged_in() ? 'true' : 'false',
+				'admin_url' => get_admin_url(),
 				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', 'simplemodal-login'),
 				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', 'simplemodal-login'),
 				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', 'simplemodal-login'),
@@ -443,13 +439,13 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function login_redirect($redirect_to, $req_redirect_to, $user) {
-		    if (!isset($user->user_login) || !$this->is_ajax()) {
+			if (!isset($user->user_login) || !$this->is_ajax()) {
 				return $redirect_to;
-		    }
-		    if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php')
-		    		&& function_exists('redirect_to_front_page')) {
-		    	$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
-		    }
+			}
+			if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php')
+					&& function_exists('redirect_to_front_page')) {
+				$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
+			}
 			echo "<div id='simplemodal-login-redirect'>$redirect_to</div>";
 			exit();
 		}

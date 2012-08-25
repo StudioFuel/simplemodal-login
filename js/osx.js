@@ -1,7 +1,7 @@
 /*
  * SimpleModal Login
  * Theme: osx
- * Copyright (c) 2010 Eric Martin http://www.ericmmartin.com
+ * Copyright (c) 2012 Eric Martin http://www.ericmmartin.com
  */
 jQuery(function ($) {
 	var SimpleModalLogin = {
@@ -39,7 +39,8 @@ jQuery(function ($) {
 						position:['0', null],
 						onOpen:SimpleModalLogin.open,
 						onShow:SimpleModalLogin.show,
-						onClose:SimpleModalLogin.close
+						onClose:SimpleModalLogin.close,
+						zIndex:10000
 					});
 				}
 				else {
@@ -127,7 +128,7 @@ jQuery(function ($) {
 									activity.hide(); fields.show();
 								}
 								else if (loginform.length) {
-									s.showError(form, ['empty_both']);
+									s.showError(form, ['empty_all']);
 									activity.hide(); fields.show();
 								}
 							}
@@ -198,7 +199,12 @@ jQuery(function ($) {
 		},
 		keydown: function (e) {
 			if (e.altKey && e.ctrlKey && e.keyCode === 76) {
-				$('.simplemodal-login').trigger('click.simplemodal-login');
+				if (SimpleModalLoginL10n['logged_in'] === "true") {
+					window.location = SimpleModalLoginL10n['admin_url'];
+				}
+				else {
+					$('.simplemodal-login').trigger('click.simplemodal-login');
+				}
 			}
 		},
 		message: function (key) {
