@@ -3,7 +3,7 @@
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
-Version: 1.0.5
+Version: 1.0.6
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
@@ -42,7 +42,7 @@ if (!class_exists('SimpleModalLogin')) {
 		/**
 		 * @var string The plugin version
 		 */
-		var $version = '1.0.5';
+		var $version = '1.0.6';
 
 		/**
 		 * @var string The plugin version
@@ -322,6 +322,7 @@ if (!class_exists('SimpleModalLogin')) {
 				$reset_form = $this->reset_form();
 				$output .= apply_filters('simplemodal_reset_form', $reset_form);
 			}
+			$output .= '</div>';
 
 			echo $output;
 		}
