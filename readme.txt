@@ -3,8 +3,8 @@ Contributors: emartin24
 Donate link: http://www.ericmmartin.com/donate/
 Tags: ajax, login, modal, admin, password, username, register, manage, redirect, widget, plugin
 Requires at least: 2.5.0
-Tested up to: 3.4.1
-Stable tag: 1.0.6
+Tested up to: 3.4.2
+Stable tag: 1.0.7
 
 SimpleModal Login provides a modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery
 
@@ -178,6 +178,9 @@ Just add the following to your `style.css` file:
 
 
 == Changelog ==
+
+= 1.0.7 =
+* Upgraded to SimpleModal 1.4.3 (requires jQuery 1.3+)
 
 = 1.0.6 =
 * Fix HTML markup bug.
